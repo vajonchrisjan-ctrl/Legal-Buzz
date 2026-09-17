@@ -33,3 +33,19 @@ GMB, AI, Admin) unless explicitly asked.
 - WPVibe (AI-native WordPress management plugin, via `mcp.wpvibe.ai`) is installed on the site and
   is the preferred path for future WordPress edits once connected, in place of raw REST API
   scripting through a headless browser.
+
+## Reporting format (user preference)
+When reporting findings/results back (e.g. "is item X real, what's its status"), lead with a
+scannable header block before any supporting detail, so the user can read the verdict immediately
+without hunting for it in prose:
+
+```
+STATUS: ✅ Confirmed / ❌ Not real / ⚠️ Needs check / 🔧 Fixed
+ITEM: what this is about
+FINDING: one-line verdict
+DETAILS: supporting specifics (only as long as needed)
+NEXT: what happens next, or what's needed from the user
+```
+
+Keep DETAILS terse — bullet points over paragraphs. Only include a NEXT line when there's an
+actual next step or open question.

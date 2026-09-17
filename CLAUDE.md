@@ -50,11 +50,17 @@ hunting for it in prose:
 
 ```
 STATUS: ✅ Confirmed / ❌ Not real / ⚠️ Needs check / 🔧 Fixed
+LIVE SITE CHANGE: Yes — <what actually changed on jpgoldman.co.uk> / No — <why not, e.g. "CRM status only, site was already correct" or "no live-site change was needed">
 ITEM: what this is about
 FINDING: one-line verdict
 DETAILS: supporting specifics (only as long as needed)
 NEXT: what happens next, or what's needed from the user
 ```
+
+The LIVE SITE CHANGE line always states plainly whether anything was actually deployed/edited on
+the real jpgoldman.co.uk site, as distinct from a status update on the Legalbuzz CRM dashboard —
+these are two different things and have caused confusion before. Marking a CRM task "Done" is
+never itself a live-site change; say so explicitly when that's all that happened.
 
 **Multiple items** (e.g. a task list, several findings in one report): give each item its own
 separated box, mirroring how the Legalbuzz CRM shows one card per task — do not merge them into a
@@ -63,6 +69,7 @@ single paragraph or a combined table. One box per item, in this shape:
 ```
 **TASK N — <task name>**
 - Status: <To do/Done/etc> · Urgency: <High/Medium/Low>
+- Live site change: Yes/No — <one line>
 - Found by site check: <the claim/count and what page(s) it names>
 - Reality check: <what's actually true on the live site, if verified>
 ---

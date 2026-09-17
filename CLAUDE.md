@@ -34,6 +34,14 @@ GMB, AI, Admin) unless explicitly asked.
   is the preferred path for future WordPress edits once connected, in place of raw REST API
   scripting through a headless browser.
 
+## Marking a task Done on the CRM (always do this)
+Whenever a task's status is changed to Done on the Legalbuzz board (via the "Edit activity"
+modal), take a fresh screenshot of the board immediately after saving and visually confirm the
+row actually shows the updated status (strikethrough title + "Done" badge) before reporting it
+to the user as done. Do not rely on the scraped text output alone — the UI has been flaky before
+(force-clicks accidentally closing the modal, save failures), so a visual check is the only way
+to be sure the change actually landed.
+
 ## Reporting format (user preference — always use this)
 
 **Single finding** (one item, e.g. "is item X real, what's its status"): lead with a scannable

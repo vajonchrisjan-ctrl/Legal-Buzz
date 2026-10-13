@@ -4,7 +4,7 @@ from pypdf import PdfReader, PdfWriter
 from pypdf.generic import RectangleObject
 src, n, out = sys.argv[1], int(sys.argv[2]), sys.argv[3]
 r = PdfReader(src); pg = r.pages[0]
-W = float(pg.mediabox.width); T = float(pg.mediabox.height); ph = T / n
+W = float(pg.mediabox.width); T = float(pg.mediabox.height); ph = W * 1810 / 1280  # one 1280x1810px page, in points
 w = PdfWriter()
 for i in range(n):
     p = w.add_page(pg)

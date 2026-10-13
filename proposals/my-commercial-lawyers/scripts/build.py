@@ -31,11 +31,8 @@ head = head.replace('<link rel="preload" as="image" href="https://legalbuzz.co/a
 # Static header for print (fixed headers repeat on every PDF page)
 head = head.replace('class="fixed inset-x-0 top-0 z-50 border-b', 'class="relative inset-x-0 top-0 z-50 border-b')
 PRINT_CSS = '''<style>
-@page { size: 1280px 1810px !important; margin: 0 !important; }
+@page { size: 1280px 1810px; margin: 0; }
 html, body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-figure, table, tr, li, blockquote, .rounded-xl, .rounded-2xl, h3, h4 { break-inside: avoid; }
-h2, h3, h4 { break-after: avoid; }
-section[id^="s"] { break-before: page; }
 .mcl-logo { filter: brightness(0) invert(1); }
 </style>'''
 head = head.replace('</head>', PRINT_CSS + '\n  </head>')

@@ -56,11 +56,11 @@ hero = f'''<main class="bg-background">
 <h1 class="mt-6 font-display text-5xl font-bold leading-[0.95] lg:text-7xl">Be seen. Be trusted. Be chosen.</h1>
 <p class="mt-8 max-w-4xl font-display text-2xl font-semibold leading-snug text-balance lg:text-3xl">A growth plan for {FIRM}</p>
 <p class="mt-6 max-w-3xl text-lg leading-relaxed text-primary-foreground/75">How we would get {FIRM} ranking on Google, recommended by AI, and chosen by UK businesses with a commercial or construction dispute, in London and Croydon first, then nationally and for overseas clients.</p>
-{stats([("0", "of your 24 service and location pages are listed in the llms.txt file written for AI assistants"),
-        ("0", "lawyers Google or AI can verify: all 40 guides are signed by one author account that is not on your team page"),
+{stats([("0", "AI answers that name My Commercial Lawyers. 27 cite one of your pages without saying your name"),
+        ("0.01%", "your share of UK AI answers across Google AI, ChatGPT, Perplexity and Gemini"),
         ("45", "out of 100: Google's mobile performance score for your homepage")], cols=3, dark=True)}
 <div class="mt-8 flex flex-wrap gap-2">{chip_hero}</div>
-<p class="mt-10 border-t border-primary-foreground/15 pt-6 text-sm text-primary-foreground/60">Prepared for the {FIRM} team · Prepared by George Levett and PJ Singh, legalbuzz · Data: live crawl of all 75 URLs on mycommerciallawyers.com, Google Lighthouse 12 (mobile), an iPhone-sized render, {DATE}. Rankings, competitor and AI share-of-voice figures: SE Ranking (Google UK and AI Search), export pending.</p>
+<p class="mt-10 border-t border-primary-foreground/15 pt-6 text-sm text-primary-foreground/60">Prepared for the {FIRM} team · Prepared by George Levett and PJ Singh, legalbuzz · Data: live crawl of all 75 URLs on mycommerciallawyers.com, Google Lighthouse 12 (mobile), an iPhone-sized render, {DATE}. AI figures: SE Ranking AI Search (UK, April to October 2026). Google ranking and competitor figures: SE Ranking (Google UK), export pending.</p>
 </div></section>
 <nav aria-label="Proposal sections" class="border-b border-border bg-background/95"><div class="band-x mx-auto flex max-w-6xl flex-wrap gap-2 py-3">{chip_nav}</div></nav>'''
 
@@ -73,7 +73,7 @@ s1 = s1.replace('That is the answer we want ChatGPT and Google to give about Anc
 s1 = s1.replace('Fix the site, build the Ballarat pillar, rebuild the four service pages.', 'Fix the site, build the London construction disputes pillar, consolidate the overlapping service pages.')
 s1 = s1.replace('Not in the top 100 for any Ballarat search', 'Rankings ' + PEND)
 s1 = s1.replace("Teach AI you are in Ballarat. Emma's profile, schema, Australian citations, reviews.", 'Teach AI who your barristers and solicitors are, where you are, and that you are regulated. Profiles, schema, UK legal citations, reviews.')
-s1 = s1.replace('<span class="font-bold text-destructive">Today: </span>1.3% of AI answers', '<span class="font-bold text-destructive">Today: </span>No lawyer on the site AI can verify')
+s1 = s1.replace('<span class="font-bold text-destructive">Today: </span>1.3% of AI answers', '<span class="font-bold text-destructive">Today: </span>0.01% of AI answers, named in none')
 s1 = s1.replace('A site built to convert: awards, accreditations and reviews up front, phone in the header, prices visible, a Ballarat profile with forty reviews.', 'A site built to convert: barrister-led credentials and reviews up front, tap-to-call in the header, the "scope and fee before work begins" promise on every page.')
 s1 = s1.replace("The site doesn't sell you: awards hidden, 2 Google reviews in Ballarat", 'Testimonials with no review platform behind them; services start on screen six of a phone')
 s1 = re.sub(r'When someone does land on your site, it doesn\'t convince them to call\..*?so visits turn into calls and consults\.',
@@ -251,7 +251,7 @@ s4 = section(4, 'Why Google and AI do not trust the site yet', 'Why Google and A
 s5 = section(5, 'Who you are up against in London', 'How you compare with the firms on London page one',
     p('Same tool, same month, same country. Keyword counts and traffic are SE Ranking estimates for Google UK; link data is from SE Ranking\'s backlink index; Google ratings and review counts are from Google Maps.')
     + acc('Keywords, links and trust side by side', 'The firms on London page one against you',
-          table(['Firm', 'Keywords', 'Top 10', 'Est. visits / mo', 'Referring domains', 'Domain trust'], [[FIRM, PEND, '', '', '', ''], ['The firms on page one for your London searches', PEND, '', '', '', '']]))
+          table(['Firm', 'Keywords', 'Top 10', 'Est. visits / mo', 'Referring domains', 'Domain trust'], [[FIRM, PEND, '', '195', PEND, '10'], ['The firms on page one for your London searches', PEND, '', '', '', '']]))
     + fig('Estimated Google visits a month', 'SE Ranking, Google UK.', f'<div class="flex h-24 items-center justify-center rounded-lg bg-surface text-sm font-semibold text-muted-foreground ring-1 ring-border">Competitor traffic {PEND}</div>')
     + h3('The Maps pack is a review contest')
     + p('The three firms Google shows on the map for "construction solicitor croydon" or "commercial lawyer london" are chosen on relevance, distance and prominence, and prominence is mostly reviews. We found no link from your site to a Google Business Profile or to any review platform, so the first step is to confirm whether a profile exists and at which address.')
@@ -266,39 +266,8 @@ s5 = section(5, 'Who you are up against in London', 'How you compare with the fi
     ]))
 
 # ---------------------------------------------------------------- s6 What AI says about you
-ai_fix = table(['What AI needs', 'Today on your site', 'The fix', 'When'], [
-    ['To know where you are', 'No address on the contact page or in schema; registered address only in the footer', 'One verified address (or service-area profile), identical on site, schema and Google', 'Month 1'],
-    ['To know who stands behind the advice', 'One unverified author account on all 40 guides; no lawyer profiles', 'A profile and Person schema for each barrister and solicitor; every guide signed or reviewed', 'Month 1 to 2'],
-    ['To know you are regulated', 'BSB reference in the footer text only', 'BSB reference in LegalService schema, linked to the register, on every page', 'Month 1'],
-    ['To find your services', 'llms.txt lists only blog posts; 0 of 24 service and location pages', 'Hand-written llms.txt: services and locations first, then guides', 'Week 2'],
-    ['To be able to read the site', 'GPTBot, OAI-SearchBot, ClaudeBot and PerplexityBot all allowed (verified)', 'Keep it that way through the rebuild', 'Done'],
-    ['To quote you', 'FAQ schema on 26 pages; long-form 2026 guides', 'Answer-first openings, a fee answer per service, named reviewer and date', 'Month 2 onwards'],
-    ['Others to agree with you', 'No review platform linked; LinkedIn missing from schema', 'Reviews, UK legal directories, BSB and Law Society listings, press, all with the same name, address and phone', 'Month 2 onwards'],
-])
-s6 = section(6, 'What AI says about you', 'What AI says about you',
-    p('How we measure: SE Ranking AI Search tracks which brands and links appear in Google AI Overviews, Google AI Mode, ChatGPT, Perplexity and Gemini answers in the UK. We compare you with the firms that rank for commercial and construction disputes in London. Alongside it, we checked everything on your own site that decides whether AI can cite you at all.')
-    + stats([(PEND.replace('Awaiting SE Ranking export', 'Pending'), 'share of voice across the London dispute firms (SE Ranking AI Search)'), ('4 / 4', 'AI crawlers allowed in: GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot'), ('0', 'of 24 service and location pages in your llms.txt'), ('0', 'lawyers AI can verify from your site')])
-    + fig('AI share of voice: the firms competing for London', 'Google AI Overviews, AI Mode, ChatGPT, Perplexity and Gemini. SE Ranking AI Search.',
-          f'<div class="flex h-24 items-center justify-center rounded-lg bg-surface text-sm font-semibold text-muted-foreground ring-1 ring-border">Share of voice by firm {PEND}</div>')
-    + h3('Where you are already winning')
-    + cards([
-        ('AI can read the site.', 'Every major AI crawler we tested (GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot) gets the page. Many firms block them by accident. You do not.'),
-        ('You speak in questions.', 'FAQ schema on 26 pages, and guides titled the way people ask: "What is the difference between a claim and a dispute?", "Is construction adjudication the right step?". That is the shape AI answers take.'),
-        ('You publish.', 'Twenty-two guides in 2026, all with article schema and update dates. Plenty of law firm blogs go quiet for years. Your raw material is already there.'),
-    ])
-    + h3('What AI does not know')
-    + cards([
-        ('Where you are.', 'No office address on the site and none in the schema. Asked for a construction solicitor in Croydon or the City, AI has nothing that places you there, so it names a firm whose address it can confirm.', 'border-destructive'),
-        ('Who your lawyers are.', 'Eighteen names on the team page, no profiles, no Person schema, and every guide signed by an author who is not on the team. AI weighs demonstrated expertise heavily, and right now it cannot find any.', 'border-destructive'),
-        ('That you are regulated.', 'Your Bar Standards Board authorisation is the fact that separates you from lead-generation sites. It is in one line of footer text and nowhere AI looks for it.', 'border-destructive'),
-    ])
-    + h3('Your AI-citation fix list')
-    + p('Everything AI needs before it will name a firm, what your site gives it today, and when we fix it. Every "today" entry was checked on the live site on ' + DATE + '.')
-    + ai_fix
-    + h3('The AI answers you appear in today')
-    + p('Every AI answer in SE Ranking\'s UK index that names ' + FIRM + ' or cites one of your pages.')
-    + acc('The answers, one by one', 'Which questions, which engine, which page', table(['What the person asked', 'Engine', 'How you appear'], [[PEND, '', '']]))
-    + plain('Businesses now ask ChatGPT and Google AI "who is a good construction dispute solicitor in London" and "how much does adjudication cost". The firms being named have addresses, named lawyers and citations that agree with each other. Your content is good enough to be quoted. The fix list above is what lets AI trust it enough to say your name.'), alt=True)
+from s6 import build as build_s6
+s6 = build_s6(DATE)
 
 # ---------------------------------------------------------------- s7 Action plan
 inventory = table(['Group', 'What you offer today', 'Where it lives'], [
@@ -403,7 +372,7 @@ s8 = s8.replace("Emma's review time.", "Your lawyers' review time.")
 s8 = s8.replace("Everything we write follows the Australian\n                  Solicitors' Conduct Rules and the Victorian Legal Services Board and Commissioner's advertising guidance", 'Everything we write follows the BSB Handbook and the SRA\'s rules on publicity')
 s8 = s8.replace('<strong class="font-semibold text-foreground">One decision on price.</strong> Which subscription figure is right, and whether the price list can live on the page.', '<strong class="font-semibold text-foreground">One decision on fees.</strong> Which services can carry a published fee or fee range, so the cost question has an answer on the page.')
 s8 = s8.replace('- Page-one keywords in Ballarat, Melbourne and nationally - Map pack appearances for "family lawyer ballarat" - Pages cited by Google AI and ChatGPT', '- Page-one keywords in London, Croydon and nationally - Map pack appearances for London and Croydon searches - Pages cited by Google AI and ChatGPT')
-s8 = s8.replace('- Share of AI answers naming Anchored (from 1.3%) - Google reviews in Ballarat (from 2) - Australian legal citations and press earned', '- Share of AI answers naming My Commercial Lawyers (baseline from the SE Ranking export) - Google reviews (baseline to confirm) - UK legal citations and press earned')
+s8 = s8.replace('- Share of AI answers naming Anchored (from 1.3%) - Google reviews in Ballarat (from 2) - Australian legal citations and press earned', '- Share of AI answers naming My Commercial Lawyers (from 0.01%, named in 0 answers) - Google reviews (baseline to confirm) - UK legal citations and press earned')
 s8 = s8.replace('- Enquiries and free consults by location and service', '- Enquiries and consultations by location and service')
 s8 = s8.replace('consults by location and service, calls from Maps', 'consultations by location and service, calls from Maps')
 s8 = sub(s8)
@@ -464,7 +433,7 @@ summary = acc('The side-by-side summary', 'The clients above, and My Commercial 
     ['Location', 'A page for every town served, linked into a hub', 'Croydon, City and "near me" pages, no office address, seven pages splitting London', 'London hub plus five supporting pages, then Croydon and national'],
     ['Services', 'A pillar per practice area answering what clients type', 'Thirteen service pages, three overlapping', 'Five service pillars, each owning its questions'],
     ['Trust', 'Named authors, reviews built steadily, citations and press', 'One unverified author on 40 guides; testimonials with no platform; BSB status in the footer only', 'Named barristers and solicitors as authors, a review engine, BSB reference in schema, UK legal citations'],
-    ['AI', "Tracked monthly; J Scott named 687 times, Deen &amp; Co 7,017 citations", 'All AI crawlers allowed; llms.txt lists no service pages; share of voice ' + PEND, 'Share of voice tracked monthly against the London firms'],
+    ['AI', "Tracked monthly; J Scott named 687 times, Deen &amp; Co 7,017 citations", '0.01% AI presence; cited in 27 answers, named in none; llms.txt lists no service pages', 'Share of voice tracked monthly against the London firms, from 0.01% upward'],
     ['Measured on', 'Enquiries: 15 to 77, 33 in a month, +300%', 'Baseline to record in week 1', 'Enquiries and consultations, by location and service, every month'],
 ]))
 s11 += h3('In summary: what we did, and what changes for My Commercial Lawyers') + summary

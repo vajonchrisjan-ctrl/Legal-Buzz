@@ -1,6 +1,7 @@
 import re, sys, os
 sys.path.insert(0, os.path.dirname(__file__))
 from comp import *
+import seo
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TPL = open(os.path.join(ROOT, 'tpl/exp.pretty.html'), encoding='utf-8').read().split('\n')
@@ -57,7 +58,7 @@ hero = f'''<main class="bg-background">
         ("0.01%", "your share of UK AI answers across Google AI, ChatGPT, Perplexity and Gemini"),
         ("45", "out of 100: Google's mobile performance score for your homepage")], cols=3, dark=True)}
 <div class="mt-8 flex flex-wrap gap-2">{chip_hero}</div>
-<p class="mt-10 border-t border-primary-foreground/15 pt-6 text-sm text-primary-foreground/60">Prepared for the {FIRM} team · Prepared by George Levett and PJ Singh, legalbuzz · Data: live crawl of all 75 URLs on mycommerciallawyers.com, Google Lighthouse 12 (mobile), an iPhone-sized render, {DATE}. AI figures: SE Ranking AI Search (UK, April to October 2026). Google ranking and competitor figures: SE Ranking (Google UK), export pending.</p>
+<p class="mt-10 border-t border-primary-foreground/15 pt-6 text-sm text-primary-foreground/60">Prepared for the {FIRM} team · Prepared by George Levett and PJ Singh, legalbuzz · Data: live crawl of all 75 URLs on mycommerciallawyers.com, Google Lighthouse 12 (mobile), an iPhone-sized render, {DATE}. SE Ranking: Google UK database and AI Search (UK), October 2026.</p>
 </div></section>
 <nav aria-label="Proposal sections" class="border-b border-border bg-background/95"><div class="band-x mx-auto flex max-w-6xl flex-wrap gap-2 py-3">{chip_nav}</div></nav>'''
 
@@ -68,7 +69,7 @@ s1 = s1.replace('including family law firms facing exactly the shift you are.', 
 s1 = s1.replace('That is the answer we want ChatGPT and Google to give about Anchored Family Law when someone in Ballarat asks for a family lawyer, or when someone anywhere in Australia asks for a\n                fixed-fee or subscription family lawyer.',
                 'That is the answer we want ChatGPT and Google to give about My Commercial Lawyers when someone in London asks for a construction dispute solicitor, or when a business anywhere in the UK, or overseas, asks who can help with an adjudication, an unpaid invoice or a breach of contract.')
 s1 = s1.replace('Fix the site, build the Ballarat pillar, rebuild the four service pages.', 'Fix the site, build the London construction disputes pillar, consolidate the overlapping service pages.')
-s1 = s1.replace('Not in the top 100 for any Ballarat search', 'Rankings ' + PEND)
+s1 = s1.replace('Not in the top 100 for any Ballarat search', '190 of 195 Google visits land on the homepage; service pages earn none')
 s1 = s1.replace("Teach AI you are in Ballarat. Emma's profile, schema, Australian citations, reviews.", 'Teach AI who your barristers and solicitors are, where you are, and that you are regulated. Profiles, schema, UK legal citations, reviews.')
 s1 = s1.replace('<span class="font-bold text-destructive">Today: </span>1.3% of AI answers', '<span class="font-bold text-destructive">Today: </span>0.01% of AI answers, named in none')
 s1 = s1.replace('A site built to convert: awards, accreditations and reviews up front, phone in the header, prices visible, a Ballarat profile with forty reviews.', 'A site built to convert: barrister-led credentials and reviews up front, tap-to-call in the header, the "scope and fee before work begins" promise on every page.')
@@ -95,7 +96,7 @@ s2 = section(2, 'Your brief', 'Your brief',
     + cards([
         ('Disputes only, commercial and construction.', 'That is a strength, not a limitation. Specialist firms do not win by sounding like every other law firm. They win by owning the questions only a specialist can answer, and AI engines reward that even more than Google does.'),
         ('Barrister-led, with litigation solicitors.', 'Authorised by the Bar Standards Board for Direct Public Access and to conduct litigation (reference 191504). Very few firms in your market can say that. Today it lives in the footer.'),
-        ('London and Croydon first.', 'You already have Croydon and City of London pages. What is missing is the structure that ties them into one London pillar, and an address Google can put on the map.'),
+        ('London and Croydon first.', 'You already have Croydon and City of London pages, and your Google profile is #1 in the Maps pack for "construction dispute solicitor london". What is missing is the structure that ties the pages into one London pillar, and an address Google can put on the map.'),
         ('Already publishing.', 'Forty guides, twenty-two of them in 2026, all with article schema. You would start from a body of work, not from nothing. The job is to sign it, connect it and get it cited.'),
         ('Overseas clients are a genuine difference.', 'Pages for international clients, overseas law firms and clients in Oman. Very few UK dispute practices target that. AI answers for "UK dispute lawyer for an overseas company" are where you can lead.'),
     ], cols=5), alt=True)
@@ -129,28 +130,23 @@ location_pages = [
     ('UK dispute partnerships for overseas law firms', 'UK Dispute Partnerships for Overseas Law Firms', 'International'),
     ('UK dispute lawyer Oman', 'UK Dispute Lawyer Oman - My Commercial Lawyers', 'Oman'),
 ]
-pm1 = table(['Page', 'Page title today', 'Market', 'Keywords / visits'], [[a, b_, c, PEND] for a, b_, c in service_pages])
-pm2 = table(['Page', 'Page title today', 'Market', 'Keywords / visits'], [[a, b_, c, PEND] for a, b_, c in location_pages])
+SLUG = {'Construction disputes': '/construction-disputes/', 'Construction contract disputes': '/construction-contract-disputes/', 'Construction adjudication advice': '/construction-adjudication-advice/', 'Construction adjudication UK': '/construction-adjudication-uk/', 'Construction litigation': '/construction-litigation/', 'Construction dispute resolution': '/construction-dispute-resolution/', 'Construction solicitors': '/construction-solicitors/', 'Unpaid construction invoices': '/unpaid-construction-invoices/', 'JCT contract dispute solicitor London': '/jct-contract-dispute-solicitor-london/', 'Contentious commercial disputes': '/contentious-commercial-disputes/', 'Breach of contract': '/breach-of-contract/', 'Debt recovery': '/debt-recovery/', 'International arbitration': '/international-arbitration-uk/',
+        'Construction solicitor in Croydon': '/construction-solicitor-in-croydon/', 'Commercial lawyer Croydon': '/commercial-lawyer-croydon/', 'Construction lawyer City of London': '/construction-lawyer-city-of-london/', 'Construction law in London': '/construction-law-in-london/', 'Construction law firm London': '/construction-law-firm-london/', 'Construction solicitor near me': '/construction-solicitor-near-me/', 'Commercial lawyer near me': '/commercial-lawyer-near-me/', 'Breach of contract lawyer near me': '/breach-of-contract-lawyer-near-me/', 'UK dispute lawyer for international clients': '/uk-dispute-lawyer-for-international-clients/', 'UK dispute partnerships for overseas law firms': '/uk-dispute-partnerships-overseas-law-firms/', 'UK dispute lawyer Oman': '/uk-dispute-lawyer-oman/'}
+pm1 = table(['Page', 'Page title today', 'Market', 'Keywords / visits'], [[a, b_, c, seo.kv(SLUG[a])] for a, b_, c in service_pages])
+pm2 = table(['Page', 'Page title today', 'Market', 'Keywords / visits'], [[a, b_, c, seo.kv(SLUG[a])] for a, b_, c in location_pages])
 
-keyword_fig = fig('Where your keywords actually sit', 'Which pages earn your Google visibility, and how much of it sits on the pages that win instructions.',
-    f'<div class="flex h-14 items-center justify-center rounded-lg bg-surface text-sm font-semibold text-muted-foreground ring-1 ring-border">Ranking data by page {PEND}</div>'
-    '<ul class="mt-5 grid gap-2 text-sm sm:grid-cols-3"><li class="flex items-center gap-2"><span class="h-3 w-3 rounded-sm bg-muted-foreground/40"></span><span class="text-foreground/75">Homepage (own name)</span></li><li class="flex items-center gap-2"><span class="h-3 w-3 rounded-sm bg-muted-foreground/60"></span><span class="text-foreground/75">Guides and insights</span></li><li class="flex items-center gap-2"><span class="h-3 w-3 rounded-sm bg-destructive"></span><span class="font-bold">Pages that win clients</span></li></ul>')
-
-serp_fig = fig('The London test', 'What a contractor in London sees for "construction dispute solicitor london". Searched from London.',
-    f'''<div class="mx-auto max-w-2xl overflow-hidden rounded-xl bg-surface ring-1 ring-border"><div class="flex items-center gap-3 border-b border-border bg-background px-4 py-3">{SEARCH}<span class="text-sm">construction dispute solicitor london</span></div>
-<div class="space-y-4 p-4"><div class="rounded-lg bg-background p-4 ring-1 ring-border"><p class="flex items-center gap-2 text-xs font-bold tracking-wide text-secondary uppercase">{SPARK()} AI Overview</p><p class="mt-2 text-sm text-foreground/80">Firms named {PEND}</p></div>
-<div class="rounded-lg bg-background p-4 ring-1 ring-border"><p class="flex items-center gap-2 text-xs font-bold tracking-wide text-secondary uppercase">{PIN()} Maps pack</p><p class="mt-2 text-sm text-foreground/80">No Google Business Profile address found on your site to place you in it. Pack results {PEND}</p></div>
-<div class="flex items-center gap-3 rounded-lg border-2 border-dashed border-destructive px-4 py-3 text-sm font-bold text-destructive">{XICON}{FIRM}: position {PEND}</div></div></div>''')
+keyword_fig = seo.keyword_fig()
+serp_fig = seo.serp_fig()
 
 findings = (
-    finding(1, 'No address that Google or AI can place on a map',
-        'You have pages for Croydon, the City of London and "near me" searches, but no office address appears on the contact page, and your LegalService schema has no address, phone, opening hours, geo or area served. The only address on the site is the registered address in the footer (7 Bell Yard, London WC2A 2JR).',
+    finding(1, 'Your address is not where Google and AI look for it',
+        'Your homepage contact block and footer give 7 Bell Yard, London WC2A 2JR, and your Google profile already ranks #1 in the Maps pack for "construction dispute solicitor london". But the contact page shows no address, the LegalService schema has no address, phone, hours, geo or area served, and SE Ranking shows the contact page ranking for "7 Savoy Court London WC2R 0EX", which suggests an older address is still attached to you somewhere online.',
         'One verified office address (or a service-area profile), stated identically on the site, in LegalService and LocalBusiness schema and on Google Business Profile, plus areaServed for London, Croydon and the UK.')
     + finding(2, 'Seven pages competing for the same London construction search',
         'Construction disputes, Construction dispute resolution, Construction law in London, Construction law firm London, Construction lawyer City of London, Construction solicitor near me and the JCT London page all target near-identical London construction terms, plus two adjudication pages (Construction adjudication advice and Construction adjudication UK). Google has to guess which one to rank, and usually ranks none of them well.',
         'One London construction disputes hub, with each remaining page owning one distinct question (JCT, adjudication, unpaid invoices, City of London). Merge and redirect the rest.')
     + finding(3, 'Pages that should not be in Google or in front of AI',
-        'The thank-you page and an internal "Trello Instructions" page are set to index and listed in your sitemap. A post titled "What are the 5 Cs of food safety: UK business guide" sits among your dispute guides. One post lives at a broken slug: /construction-disputesknowwhereyoustand/.',
+        'The thank-you page and an internal "Trello Instructions" page are set to index and listed in your sitemap. A post titled "What are the 5 Cs of food safety: UK business guide" sits among your dispute guides, and two older off-topic posts (criminal-law defences, health and safety penalties) that ranked for 20 keywords now redirect to the homepage, passing those signals to it. One post lives at a broken slug: /construction-disputesknowwhereyoustand/.',
         'Noindex and remove the two utility pages from the sitemap, retire or redirect the off-topic post, and fix the slug with a redirect.')
     + finding(4, 'Schema that says the wrong things',
         'The LegalService schema carries an empty review list and images named "Environmental-and-Safety-Violations" and "Third-Party-Funding". The Organization contact point links to /contact-us/, which redirects to the homepage. Your LinkedIn company page is linked in the header but missing from the schema\'s sameAs list.',
@@ -191,22 +187,29 @@ speed = (h3('The speed test: Lighthouse')
         ['Accessibility', '87 / 100', '90+', 'Contrast failures, form fields and drop-downs without labels, headings out of order.'],
         ['Best practices', '79 / 100', '90+', 'Third-party cookies and browser issues logged on load.'],
         ['SEO (technical)', '100 / 100', '90+', 'The basics pass. This score does not measure location, authorship or entity signals, which is where the real gap is.'],
-    ]) + h4('Mobile speed against the firms ranking for your London searches') + table(['Firm', 'Score', 'Details'], [[PEND, '', ''], [FIRM, '45', '(server response 0.12s, largest content paint 5.7s)']]))
+    ]) + h4('Mobile speed against the firms ranking for your London searches') + table(['Firm', 'Score', 'Details'], [['Osbornes Law (organic #2)', '100', '(server response 0.26s, largest content paint 1.1s)'], ['B P Collins (organic #4)', '39', '(server response 0.25s, largest content paint 4.2s)'], [FIRM, '45', '(server response 0.12s, largest content paint 5.7s)']]))
     + quote(b('Why this matters for the plan.') + ' Every speed problem above comes from the same place: an Elementor and Pro Elements build on the Astra theme, loading 4 MB of scripts and uncompressed images. Patching it costs nearly as much as rebuilding it. That is why Section 8 includes a new AI-ready site at no cost.'))
 
 s3 = section(3, 'Where MCL is today', f'Where {SHORT} is today',
-    p(f'Every page on the site, what it is built to win, and how it performs on a phone. Sources: a live crawl of all 75 URLs in your sitemap, Lighthouse 12 and a mobile render of the homepage on {DATE}. Ranking and traffic figures: SE Ranking (Google UK), export pending.')
-    + stats([('75', 'URLs in your sitemap: 35 pages and 40 guides'), ('24', 'service and location pages built to win instructions'), ('7', 'of them chasing the same London construction searches'), ('2', 'internal pages (thank-you, Trello instructions) open to Google and AI')])
+    p(f'Every page on the site, what it is built to win, and how it performs on a phone. Sources: a live crawl of all 75 URLs in your sitemap, Lighthouse 12 and a mobile render of the homepage on {DATE}. Rankings and traffic: SE Ranking, Google UK database, pulled 13 October 2026.')
+    + stats([('365', 'keywords ranking anywhere in Google\'s top 100'), ('94', 'of those in the top 10'), ('195', 'estimated organic visits a month, worth about $1.2K in ads'), ('190', 'of those 195 visits land on the homepage; your service pages earn none')])
     + keyword_fig
-    + p('Every page has a single H1, a written page title and a meta description, and the service pages carry FAQ schema. That puts you ahead of most firms we audit. The question this section answers is which of those pages Google actually ranks, and that needs the SE Ranking export.')
+    + p('Three hundred and sixty-five keywords sounds healthy until you look at which pages they sit on. 268 of them belong to the homepage, which ranks #1 for broad terms such as "commercial law firm" (590 searches a month) and "commercial lawyers" (320), but also for other firms\' names and lookalikes ("my solicitors", "mc solicitors", "mcleods barristers and solicitors") because your name begins with "My". Your seven service and location pages that rank at all hold 30 keywords between them and bring in no measurable visits. The technical basics are sound: every page has a single H1, a title, a meta description, and the service pages carry FAQ schema across all 75 URLs we crawled.')
     + h3('The page map')
-    + p('Thirty-five pages and forty guides are in your sitemap. Here is every page built to win work, what its title says today, and the market it targets.')
+    + p('Thirty-five pages and forty guides are in your sitemap. Here is every page built to win work, what its title says today, the market it targets, and what SE Ranking says it ranks for (keywords in the top 100 / estimated visits a month).')
     + acc('Service pages', 'Thirteen practice-area pages, three of which overlap', pm1)
     + acc('Location and audience pages', 'Croydon, City of London, "near me" and international', pm2)
-    + plain('your site already has the pages. What it lacks is a structure that tells Google which page answers which question, and a London address that ties the location pages to a real office.')
+    + plain('your service pages, the pages that should be winning clients, are almost invisible. Seventeen of the twenty-four rank for nothing at all. The homepage is doing all the work, and it is doing it for broad commercial terms, not for construction disputes, which is your strongest practice.')
     + h3('The London test')
-    + p(f'We will run the three searches a business owner in London would type, from London: "construction dispute solicitor london", "commercial litigation solicitor london" and "construction solicitor croydon". The results come from the SE Ranking export. {PEND}')
+    + p('We looked at the searches a business owner in London would type, using the results pages SE Ranking stored on 13 October 2026 (Google UK; SE Ranking offers no London-only location). Your Google profile wins the map. Your website does not appear on page one for any of them.')
     + serp_fig
+    + acc('All four London searches in full', 'construction dispute solicitor london, commercial litigation solicitor london, commercial lawyer london, construction solicitor croydon', seo.serp_table())
+    + h3('Three things the London results tell us')
+    + cards([
+        ('You already win the map.', 'Your Google profile is #1 in the Maps pack for "construction dispute solicitor london" and #3 for "commercial litigation solicitor london", ahead of Fenwick Elliott. That is the hardest slot to take, and you hold it.'),
+        ('Page one is won by one good page.', 'Osbornes Law, B P Collins, Forsters and Russell-Cooke each rank with a single, dedicated construction disputes page. Your /construction-disputes/ page ranks #81 for "construction dispute". The structure works; your page is not built for it yet.'),
+        ('Legal 500 is on page one for both searches.', 'And it is cited in the AI answers in your topics. A directory listing is the shortest route onto page one and into AI answers for a firm with domain trust of 10.'),
+    ])
     + h3('Why the site isn\'t ranking as it should')
     + p('Seven findings from the crawl, in the order we would fix them. None of them is a criticism of the firm. They are the gap between a site built to describe a business and a site built to be found and cited.')
     + findings + mobile + speed)
@@ -245,14 +248,17 @@ s4 = section(4, 'Why Google and AI do not trust the site yet', 'Why Google and A
     + quote(b('What we do about it.') + ' A proper profile page for each barrister and solicitor with Person schema linked to the Bar Standards Board or Law Society register, LinkedIn and legal directories, so every byline resolves to a verifiable lawyer. Every guide gets a named lawyer as author or reviewer, a last-reviewed date and Article schema. The forty guides are triaged: sign the strong 2026 ones, merge the overlapping London construction guides, retire the off-topic post, and link every guide into its service pillar. This is part of the Fix step in month one, and it is re-checked every month after.'), alt=True)
 
 # ---------------------------------------------------------------- s5 Competitors (pending SE Ranking)
+maps_fig = fig('The Maps pack today', 'Google UK, stored by SE Ranking on 13 October 2026.', seo.maps_tbl())
 s5 = section(5, 'Who you are up against in London', 'How you compare with the firms on London page one',
-    p('Same tool, same month, same country. Keyword counts and traffic are SE Ranking estimates for Google UK; link data is from SE Ranking\'s backlink index; Google ratings and review counts are from Google Maps.')
-    + acc('Keywords, links and trust side by side', 'The firms on London page one against you',
-          table(['Firm', 'Keywords', 'Top 10', 'Est. visits / mo', 'Referring domains', 'Domain trust'], [[FIRM, PEND, '', '195', PEND, '10'], ['The firms on page one for your London searches', PEND, '', '', '', '']]))
-    + fig('Estimated Google visits a month', 'SE Ranking, Google UK.', f'<div class="flex h-24 items-center justify-center rounded-lg bg-surface text-sm font-semibold text-muted-foreground ring-1 ring-border">Competitor traffic {PEND}</div>')
-    + h3('The Maps pack is a review contest')
-    + p('The three firms Google shows on the map for "construction solicitor croydon" or "commercial lawyer london" are chosen on relevance, distance and prominence, and prominence is mostly reviews. We found no link from your site to a Google Business Profile or to any review platform, so the first step is to confirm whether a profile exists and at which address.')
-    + fig('The Maps pack is a review contest', 'Google reviews on the profiles that compete for the map.', f'<div class="flex h-24 items-center justify-center rounded-lg bg-surface text-sm font-semibold text-muted-foreground ring-1 ring-border">Review counts {PEND}</div>')
+    p('Same tool, same month, same country. Keyword counts, traffic and links are SE Ranking estimates for the Google UK database, pulled 13 October 2026.')
+    + acc('Who SE Ranking thinks you compete with', 'Its ten closest organic competitors, mostly name lookalikes', seo.competitors_tbl())
+    + p('<em class="text-sm text-muted-foreground not-italic">Top 10 is n/a for competitors because SE Ranking shows their top-10 share only as a percentage. Five of the ten share your "My..." naming pattern rather than your practice: Google is grouping you by name, not by construction disputes. Your real competitors are the firms below.</em>')
+    + seo.traffic_fig()
+    + h3('Who is actually on London page one')
+    + acc('The firms a London contractor sees', 'From the stored results pages for your London searches', seo.page_one_tbl())
+    + h3('The Maps pack is a review contest, and you are already in it')
+    + p('The three firms Google shows on the map are chosen on relevance, distance and prominence, and prominence is mostly reviews. You hold #1 for "construction dispute solicitor london" and #3 for "commercial litigation solicitor london", but you are not in the pack for "commercial lawyer london". SE Ranking does not show review counts for Maps entries, so we record yours and your rivals\' from Google Maps in week one. Your site does not link to the profile or show its reviews.')
+    + maps_fig
     + h3('What nobody in London is likely to do, which is where you win')
     + cards([
         ('Barrister-led Direct Public Access.', 'A business can instruct a barrister directly, without a solicitor in between. That is a cost and speed story most dispute firms cannot tell, and AI answers to "how much does a construction dispute cost" can carry it.'),
@@ -276,18 +282,11 @@ inventory = table(['Group', 'What you offer today', 'Where it lives'], [
     ['International', 'International arbitration; overseas clients; overseas law firm partnerships; Oman', 'Four pages'],
     ['Non-contentious', 'Construction solicitors (avoiding disputes)', 'One page; title needs a factual rewrite'],
 ])
-kw = table(['Service', 'Keywords worth owning (searches a month, difficulty)', 'Page that wins it'], [
-    ['Construction disputes', f'construction dispute solicitor london; construction lawyer london; construction dispute lawyer {PEND}', 'London construction disputes hub'],
-    ['Adjudication', f'construction adjudication solicitor; adjudication lawyer; enforce adjudication decision {PEND}', 'One adjudication pillar (merging the two pages)'],
-    ['Payment', f'unpaid invoice construction; retention payment dispute; pay less notice {PEND}', 'Unpaid invoices pillar'],
-    ['Commercial disputes', f'commercial litigation solicitor london; breach of contract solicitor; business dispute lawyer {PEND}', 'Commercial disputes pillar'],
-    ['Debt recovery', f'commercial debt recovery solicitor; business debt recovery; letter before action {PEND}', 'Debt recovery pillar with the fee answer'],
-    ['International', f'uk dispute lawyer for overseas company; international arbitration lawyer uk {PEND}', 'International hub'],
-])
+kw = seo.kw_service()
 pillar = fig('How a location pillar works', 'One hub, five supporting pages, the service pillars feeding in, and a trust layer that proves it all to Google and AI.',
     '<p class="mb-2 text-center text-xs font-bold tracking-widest text-muted-foreground uppercase">Service pillars (national)</p>'
     + chips('bg-surface ring-1 ring-border', ['Construction disputes', 'Adjudication', 'Unpaid invoices and debt recovery', 'Commercial and breach of contract'])
-    + ARROW_D + f'<div class="mx-auto max-w-md rounded-2xl bg-primary px-6 py-6 text-center text-primary-foreground shadow-lg"><p class="text-xs font-bold tracking-widest text-accent uppercase">Location hub</p><p class="mt-1 font-display text-2xl font-bold">Construction dispute solicitor London</p><p class="mt-1 text-xs text-primary-foreground/65">Searches and difficulty {PEND}</p></div>' + ARROW_D
+    + ARROW_D + f'<div class="mx-auto max-w-md rounded-2xl bg-primary px-6 py-6 text-center text-primary-foreground shadow-lg"><p class="text-xs font-bold tracking-widest text-accent uppercase">Location hub</p><p class="mt-1 font-display text-2xl font-bold">Construction dispute solicitor London</p><p class="mt-1 text-xs text-primary-foreground/65">Maps #1 today · \"construction dispute lawyer\" 210 searches a month, difficulty 15</p></div>' + ARROW_D
     + '<p class="mb-2 text-center text-xs font-bold tracking-widest text-muted-foreground uppercase">Supporting pages: each owns one London question</p>'
     + chips('bg-accent/25 ring-1 ring-accent', ['JCT contract disputes in London', 'Adjudication in London and the TCC', 'Unpaid invoices for London contractors', 'Construction disputes in the City', 'Construction solicitor Croydon'])
     + ARROW_D + '<p class="mb-2 text-center text-xs font-bold tracking-widest text-muted-foreground uppercase">Trust layer: what corroborates every claim</p>'
@@ -312,27 +311,30 @@ authority = table(['Signal', 'What we build', 'Where it works'], [
     ['Technical trust', 'Fast on mobile, labelled forms, no indexed utility pages, a hand-written llms.txt, FAQ schema on every guide.', 'Rankings, and the Lighthouse scores in Section 3 turning green'],
 ])
 three = ('<div class="my-10 grid gap-4 lg:grid-cols-3">'
-    + slot(PIN('h-6 w-6 text-secondary'), 'Win the maps', 'No address on the site to rank', ['A verified profile at a real address', 'Reviews that name the service', 'Same details on every directory'])
-    + slot(SEARCHBIG, 'Win the organic', 'Seven pages splitting one search', ['One London hub plus five supporting pages', 'Overlapping pages merged and redirected', 'A fast new site'])
-    + slot(SPARK('h-6 w-6 text-secondary'), 'Win the AI answer', 'No lawyer AI can verify', ['Teach AI where you are', 'Barrister and solicitor profiles', 'UK legal citations and press'])
+    + slot(PIN('h-6 w-6 text-secondary'), 'Win the maps', 'Maps #1 for construction, #3 for commercial litigation, absent for commercial lawyer london', ['A verified profile at a real address', 'Reviews that name the service', 'Same details on every directory'])
+    + slot(SEARCHBIG, 'Win the organic', 'Website not in the top 100 for construction dispute solicitor london', ['One London hub plus five supporting pages', 'Overlapping pages merged and redirected', 'A fast new site'])
+    + slot(SPARK('h-6 w-6 text-secondary'), 'Win the AI answer', 'Six firms cited in the AI Overview, not you', ['Teach AI where you are', 'Barrister and solicitor profiles', 'UK legal citations and press'])
     + '</div>')
 s7 = section(7, 'The action plan', 'The action plan',
-    p('Everything you do, the keywords for each of those services, the local terms on top, and the structure that turns both into authority. Search volumes and difficulty will come from SE Ranking, Google UK; difficulty is 0 to 100, and anything under 20 is winnable within a few months for a well-built page.')
+    p('Everything you do, the keywords for each of those services, the local terms on top, and the structure that turns both into authority. Search volumes and difficulty are SE Ranking, Google UK, October 2026; difficulty is 0 to 100, and anything under 20 is winnable within a few months for a well-built page.')
     + h3('7.1 Everything you do: the service inventory')
     + p('Before any keyword research we listed every service on the site, because each one is a question somebody types into Google or asks an AI.')
     + acc('The full service inventory', 'Construction, adjudication, payment, commercial, debt recovery, international', inventory)
     + plain('you already have more service and location pages than you need. The plan is not more pages. It is fewer, clearer ones, each owning one question, each signed by a lawyer.')
     + h3('7.2 Keyword research: the questions behind each service')
-    + p('For every service above, these are the searches we would build the pillars around. Volumes and difficulty follow from the SE Ranking export.')
+    + p('For every service above we found what businesses in the UK actually search. Difficulty under 20 means a well-written page from a credible firm can rank within months. Almost every term below is under 20, and your existing pages compete for none of them from page one.')
     + acc('Keywords for every service', 'Construction, adjudication, payment, commercial, debt, international', kw)
     + h3('7.3 Keyword research: the local layer')
     + p('Service pages answer the question. Local pages answer "near me". London first, then Croydon, then the overseas audience you already serve.')
-    + acc('London (your first pillar)', 'construction dispute solicitor london, commercial litigation solicitor london', table(['Keyword', 'Searches / month', 'Difficulty', 'Page we build'], [['construction dispute solicitor london', PEND, '', 'London hub'], ['construction lawyer london', PEND, '', 'London hub'], ['jct contract dispute solicitor london', PEND, '', 'JCT in London'], ['construction lawyer city of london', PEND, '', 'City of London page']]))
-    + acc('Croydon', 'Your existing Croydon pages and two Croydon guides', table(['Keyword', 'Searches / month', 'Difficulty', 'Page we build'], [['construction solicitor croydon', PEND, '', 'Croydon page'], ['commercial lawyer croydon', PEND, '', 'Croydon page'], ['commercial lawyer croydon cost', PEND, '', 'Croydon cost guide']]))
+    + acc('London (your first pillar)', 'construction lawyer london, construction solicitor london, commercial litigation solicitor london', seo.kw_london())
+    + acc('Croydon', 'Your existing Croydon pages and two Croydon guides', seo.kw_croydon())
+    + p('<em class="text-sm text-muted-foreground not-italic">"Not in UK database" means the search is too small for SE Ranking to track in its UK database. Croydon and the City of London are still worth a page each (they convert, and AI answers name a firm for them); we track them in a rank-tracking project from month one rather than guess a volume.</em>')
+    + h3('Already ranking: quick wins we would take in month one')
+    + acc('Eight searches one step off page one, or just on it', 'All currently held by the homepage; each moves to the page built for it', seo.quick_wins())
     + h3('7.4 The pillar structure, explained')
     + p('A pillar is not one "London" page with the area name swapped in. It is a hub page plus a set of supporting pages that each own one question, all linking back to the hub, and all corroborated by a trust layer outside the site. Google and AI then see one firm that answers everything about construction disputes for businesses in London, rather than seven pages that mention it.')
     + pillar + acc('Every page in the London pillar', 'Hub, five supporting pages and the trust layer', pillar_tbl)
-    + quote(b('A note on the office address.') + ' Your site gives a registered address at 7 Bell Yard, London WC2A 2JR, but no office address on the contact page. Google requires a Business Profile address to be somewhere clients can meet you, at least by appointment. If that is true of an office in London or Croydon, everything above is straightforward. If not, we set the profile up as a service-area business for London and the South East, which still gets you into the map results.')
+    + quote(b('A note on the office address.') + ' Your homepage and footer give 7 Bell Yard, London WC2A 2JR, your Google profile already ranks in the Maps pack, and SE Ranking still connects your contact page to "7 Savoy Court London WC2R 0EX". We confirm which address the profile uses and make every listing match it. Google requires a Business Profile address to be somewhere clients can meet you, at least by appointment. If that is true of the Bell Yard address, everything above is straightforward. If not, we set the profile up as a service-area business for London and the South East, which still gets you into the map results.')
     + h3('7.5 How we make you the authority')
     + p('Google and AI do not rank firms, they rank evidence. Authority is a set of signals that all say the same thing about the same people, in the same words, in places the firm does not control. Here is what we build for ' + FIRM + ' and where each piece shows up.')
     + acc('The seven authority signals we build', 'Expert, entity, information gain, reviews, citations, track record, technical trust', authority)
@@ -427,15 +429,15 @@ s11 = s11.replace('The clients above, the Ballarat firms, and Anchored after thi
 s11 = s11.split('<h3 class="mt-12 mb-4 font-display text-2xl font-bold lg:text-3xl">In summary')[0]
 summary = acc('The side-by-side summary', 'The clients above, and My Commercial Lawyers today and after this plan', table(['', 'The clients above', f'{SHORT} today (verified {DATE})', f'{SHORT}, after this plan'], [
     ['The site', 'Rebuilt or fixed first: fast, readable by AI, schema on every page', 'Elementor build, Lighthouse 45 on mobile, 4 MB homepage; good FAQ and article schema', 'New AI-ready site at no cost, Lighthouse 90+, entity and Person schema throughout'],
-    ['Location', 'A page for every town served, linked into a hub', 'Croydon, City and "near me" pages, no office address, seven pages splitting London', 'London hub plus five supporting pages, then Croydon and national'],
+    ['Location', 'A page for every town served, linked into a hub', 'Croydon, City and "near me" pages; 190 of 195 visits on the homepage; seven pages splitting London', 'London hub plus five supporting pages, then Croydon and national'],
     ['Services', 'A pillar per practice area answering what clients type', 'Thirteen service pages, three overlapping', 'Five service pillars, each owning its questions'],
     ['Trust', 'Named authors, reviews built steadily, citations and press', 'One unverified author on 40 guides; testimonials with no platform; BSB status in the footer only', 'Named barristers and solicitors as authors, a review engine, BSB reference in schema, UK legal citations'],
     ['AI', "Tracked monthly; J Scott named 687 times, Deen &amp; Co 7,017 citations", '0.01% AI presence; cited in 27 answers, named in none; llms.txt lists no service pages', 'Share of voice tracked monthly against the London firms, from 0.01% upward'],
-    ['Measured on', 'Enquiries: 15 to 77, 33 in a month, +300%', 'Baseline to record in week 1', 'Enquiries and consultations, by location and service, every month'],
+    ['Measured on', 'Enquiries: 15 to 77, 33 in a month, +300%', '195 Google visits a month today; enquiry baseline recorded in week 1', 'Enquiries and consultations, by location and service, every month'],
 ]))
 s11 += h3('In summary: what we did, and what changes for My Commercial Lawyers') + summary
-s11 += h3('Your current Google rankings') + p('Every keyword ' + FIRM + ' ranks for in Google UK\'s top 100, grouped by the page that ranks. Source: SE Ranking. ' + PEND)
-s11 += acc('All keywords', 'Grouped by the page that ranks', table(['Page', 'Keyword', 'Searches / mo', 'Position', 'Type'], [[PEND, '', '', '', '']]))
+s11 += h3('Your current Google rankings') + p('Every keyword ' + FIRM + ' ranks for in Google UK\'s top 10, grouped by the page that ranks. Source: SE Ranking, Google UK database, 13 October 2026. Searches are monthly averages.')
+s11 += seo.rankings_acc() + p('<em class="text-sm text-muted-foreground not-italic">Not one of your 94 top-10 rankings contains "adjudication", "Croydon" or "City of London", and only 5 contain "construction", your core practice.</em>')
 s11 += '</div></section></div>'
 
 # ---------------------------------------------------------------- footer (template, verbatim)

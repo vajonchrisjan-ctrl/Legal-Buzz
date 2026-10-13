@@ -38,7 +38,7 @@ def build(DATE):
         + '</div>')
     ai_fix = table(['What AI needs', 'Today on your site', 'The fix', 'When'], [
         ['To say your name', 'Cited in 27 answers, named in none (SE Ranking: mentions, no data)', 'One consistent brand line on every page and in schema: "My Commercial Lawyers, barrister-led construction and commercial dispute practice, London"', 'Month 1'],
-        ['To know where you are', 'No address on the contact page or in schema; registered address only in the footer', 'One verified address (or service-area profile), identical on site, schema and Google', 'Month 1'],
+        ['To know where you are', 'Address (7 Bell Yard) on the homepage and footer only; none on the contact page or in schema; an older Savoy Court address still linked to you', 'One verified address (or service-area profile), identical on site, schema and Google', 'Month 1'],
         ['To know who stands behind the advice', 'One unverified author account on all 40 guides; no lawyer profiles', 'A profile and Person schema for each barrister and solicitor; every guide signed or reviewed', 'Month 1 to 2'],
         ['To know you are regulated', 'BSB reference in the footer text only', 'BSB reference in LegalService schema, linked to the register, on every page', 'Month 1'],
         ['To find your services', 'llms.txt lists only blog posts; 0 of 24 service and location pages', 'Hand-written llms.txt: services and locations first, then guides', 'Week 2'],
@@ -62,7 +62,7 @@ def build(DATE):
         + h3('What AI does not know')
         + cards([
             ('Your name.', 'Cited 27 times, named zero times. AI uses your pages to explain the law, then recommends someone else. A source is not a recommendation; the fix list below is what turns one into the other.', 'border-destructive'),
-            ('Where you are and who your lawyers are.', 'No office address on the site or in the schema, no lawyer profiles, and every guide signed by an author who is not on the team. AI cannot place you in London or attach your advice to a barrister.', 'border-destructive'),
+            ('Where you are and who your lawyers are.', 'Your address is on the homepage but in no schema, there are no lawyer profiles, and every guide signed by an author who is not on the team. Google Maps places you in London; AI cannot yet connect your advice to a barrister.', 'border-destructive'),
             ('What you actually sell.', f'{off_n} of your 27 citations sit in topics such as "Safety and Adverse Event Reporting", "Invoicing and Billing Software" and "Spell Compendium and Search". And Google AI Mode, your best engine in the summer, dropped you to zero in September.', 'border-destructive'),
         ])
         + h3('The sources AI trusts in your topics')

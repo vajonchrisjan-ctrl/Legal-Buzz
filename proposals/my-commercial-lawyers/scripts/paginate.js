@@ -42,7 +42,15 @@
   const blocks = [...document.querySelectorAll('header, main > section, main > nav, main > div > section, main > div > div, body > section, body > footer')];
   for (const el of blocks) {
     if (starts.includes(el)) {
-      const t = abs(el).t, k = Math.floor((t - 1) / H) + 1, target = k * H;
+      let t = abs(el).t;
+      // if only the previous section's bottom padding spilled onto this page, trim it instead of leaving a blank page
+      const spill = t - Math.floor(t / H) * H;
+      if (t > 0 && spill > 2 && spill < 200) {
+        const secs = [...document.querySelectorAll('section')].filter(x => abs(x).b <= t + 1 && x !== el && !x.contains(el));
+        const prev = secs[secs.length - 1];
+        if (prev) { const pb = parseFloat(getComputedStyle(prev).paddingBottom) || 0; if (pb >= spill) { prev.style.paddingBottom = (pb - spill) + 'px'; t = abs(el).t; } }
+      }
+      const k = Math.floor((t - 1) / H) + 1, target = k * H;
       if (t > 0 && Math.abs(t - (k - 1) * H) > 2) el.style.marginTop = (target - t) + 'px';
     }
     const kids = [...el.children];

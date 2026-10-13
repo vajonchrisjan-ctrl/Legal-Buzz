@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<title>Sambi Legal AI Citations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#000d1f; --navy-2:#0c1a2e; --navy-line:#24324a;
+  --yellow:#f5d400; --ink:#050505; --muted:#595959; --soft:#8a93a3;
+  --red:#e5484d; --red-50:#fdecec; --green:#1f8a4c; --green-50:#e8f5ee;
+  --line:#e4e6ea; --panel:#f6f7f9; --bg:#fff;
+}
+@page{size:A4;margin:0}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"DM Sans",system-ui,sans-serif;font-size:10.5pt;line-height:1.5;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+h1,h2,h3,.num{font-family:"Outfit",system-ui,sans-serif;letter-spacing:-.01em;margin:0}
+.page{width:210mm;height:297mm;padding:14mm 16mm 18mm;position:relative;page-break-after:always;overflow:hidden}
+.page:last-child{page-break-after:auto}
+.dark{background:var(--navy);color:#fff}
+.brand{font-family:"Outfit";font-weight:700;font-size:17pt;color:#fff}
+.brand i{color:var(--yellow);font-style:normal}
+.brand.ink{color:var(--navy)}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding-bottom:6mm;border-bottom:1px solid var(--navy-line)}
+.topbar.light{border-color:var(--line)}
+.client{font-family:"Outfit";font-weight:600;font-size:22pt;margin-top:16mm}
+.eyebrow{font-weight:700;font-size:8.5pt;letter-spacing:.14em;text-transform:uppercase;color:var(--yellow)}
+.eyebrow.dk{color:#9a7f00}
+.hero h1{font-size:33pt;line-height:1.08;font-weight:700;margin:7mm 0 6mm}
+.lede{color:#c7cdd8;font-size:12pt;max-width:150mm}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:4mm;margin-top:10mm}
+.stat{border:1px solid var(--navy-line);background:var(--navy-2);border-radius:6px;padding:6mm 5mm}
+.stat .num{font-size:28pt;font-weight:700;color:var(--yellow);line-height:1}
+.stat p{margin:3mm 0 0;color:#c7cdd8;font-size:9.5pt}
+.stats.light .stat{background:var(--panel);border-color:var(--line)}
+.stats.light .stat p{color:var(--muted)}
+.stats.light .stat .num{color:var(--red)}
+.stats.light .stat .num.g{color:var(--navy)}
+.chips{display:flex;flex-wrap:wrap;gap:2.5mm;margin-top:10mm}
+.chip{border:1px solid var(--navy-line);border-radius:999px;padding:1.6mm 4mm;font-weight:600;font-size:9pt;color:#fff}
+.chip b{color:var(--soft);font-weight:500;margin-right:1.5mm}
+.cover-note{position:absolute;left:17mm;right:17mm;bottom:16mm;color:var(--soft);font-size:8.5pt;border-top:1px solid var(--navy-line);padding-top:4mm}
+.sec-head{margin:6mm 0 4mm}
+.sec-head h2{font-size:19pt;font-weight:700;line-height:1.12;margin-top:2mm}
+.sec-head p{color:var(--muted);margin:3mm 0 0;max-width:165mm}
+h3{font-size:12pt;font-weight:600;margin:5mm 0 2.5mm}
+.card{border:1px solid var(--line);border-radius:6px;padding:5mm 6mm;background:#fff}
+.plain{background:#fffbe0;border-left:3px solid var(--yellow);padding:3.5mm 5mm;border-radius:0 6px 6px 0;margin-top:4mm;font-size:10pt}
+.plain b{font-family:"Outfit";font-weight:600}
+.bars .row{display:grid;grid-template-columns:42mm 1fr 14mm;align-items:center;gap:3mm;margin:2.4mm 0}
+.bars .name{font-weight:600;font-size:9.5pt}
+.bars .name small{display:block;color:var(--muted);font-weight:400;font-size:8pt}
+.bars .track{height:9px;background:#eef0f3;border-radius:999px;overflow:hidden}
+.bars .fill{height:100%;background:var(--navy);border-radius:999px}
+.bars .fill.me{background:var(--red)}
+.bars .fill.gov{background:#9aa3b2}
+.bars .val{text-align:right;font-weight:700;font-family:"Outfit";font-size:11pt}
+table{width:100%;border-collapse:collapse;font-size:9pt}
+th{text-align:left;font-weight:700;font-size:7.8pt;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-bottom:1.5px solid var(--ink);padding:2mm 2mm}
+td{border-bottom:1px solid var(--line);padding:1.6mm 2mm;vertical-align:top}
+td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+th.n{text-align:right}
+.tag{display:inline-block;font-size:7.5pt;font-weight:700;padding:.4mm 2mm;border-radius:3px;white-space:nowrap}
+.tag.lead{background:var(--green-50);color:var(--green)}
+.tag.behind{background:var(--red-50);color:#b42328}
+.tag.only{background:#eaf0ff;color:#2446a8}
+.tag.close{background:#fff4cc;color:#7a6200}
+.me{color:var(--red);font-weight:700}
+.src{color:var(--muted);font-size:8pt;margin-top:3mm}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:5mm}
+.redcard{border:1px solid var(--line);border-top:3px solid var(--red);border-radius:6px;padding:4.5mm 5mm;background:var(--panel)}
+.redcard h4{font-family:"Outfit";font-weight:600;font-size:11pt;margin:0 0 1.5mm}
+.redcard p{margin:0;font-size:9.3pt;color:#2a2f38}
+.steps{counter-reset:s}
+.step{display:grid;grid-template-columns:11mm 1fr;gap:3mm;padding:2.4mm 0;border-bottom:1px solid var(--line)}
+.step:before{counter-increment:s;content:"0" counter(s);font-family:"Outfit";font-weight:700;font-size:14pt;color:var(--navy);background:var(--yellow);border-radius:4px;height:10mm;display:flex;align-items:center;justify-content:center}
+.step h4{font-family:"Outfit";font-weight:600;font-size:11pt;margin:0}
+.step p{margin:1mm 0 0;font-size:9.5pt;color:#2a2f38}
+.foot{position:absolute;left:17mm;right:17mm;bottom:9mm;display:flex;justify-content:space-between;color:var(--soft);font-size:7.8pt}
+.cta{background:var(--navy);color:#fff;border-radius:8px;padding:5mm 7mm;margin-top:5mm;display:flex;justify-content:space-between;align-items:center;gap:6mm}
+.cta h2{font-size:14pt}
+.cta p{color:#c7cdd8;margin:2mm 0 0}
+.btn{display:inline-block;background:var(--yellow);color:var(--ink);font-weight:700;padding:2.5mm 4mm;border-radius:4px;font-size:9pt;white-space:nowrap}
+</style>
+</head>
+<body>
+
+<!-- ============ COVER ============ -->
+<section class="page dark hero">
+  <div class="topbar"><div class="brand">legalbuzz<i>.</i></div><div class="eyebrow" style="color:#c7cdd8;letter-spacing:.1em">AI visibility · Addendum</div></div>
+  <div class="client" style="font-family:Georgia,serif;font-weight:400">Sambi Legal</div>
+  <div class="eyebrow" style="margin-top:3mm">Prepared for Sambi Legal · 13 October 2026</div>
+  <h1>When AI quotes a source, it picks your competitors first.</h1>
+  <p class="lede">Your growth proposal showed how rarely AI <em>names</em> Sambi Legal. This addendum adds the other half: which websites AI <em>cites as its source</em>. We looked at 97 client topics and 388 cited websites across Google's AI Overviews, Google AI Mode and Perplexity, and compared Sambi with three firms AI cites in your market.</p>
+  <div class="stats">
+    <div class="stat"><div class="num">102</div><p>times AI cited sambilegal.com.au as a source, against 147 for Hansen Migration and 122 for Kah Lawyers</p></div>
+    <div class="stat"><div class="num">99 of 102</div><p>of those citations sit in topics answered by Google's AI Overviews. Perplexity and AI Mode barely use you</p></div>
+    <div class="stat"><div class="num">18 vs 19</div><p>Sambi's domain strength against Kah Lawyers'. Same authority. Kah wins on reputation</p></div>
+  </div>
+  <div class="chips">
+    <span class="chip"><b>A</b>Who AI cites</span>
+    <span class="chip"><b>B</b>Topics you win</span>
+    <span class="chip"><b>C</b>Topics you're missing</span>
+    <span class="chip"><b>D</b>Authority vs reputation</span>
+    <span class="chip"><b>E</b>What it adds to the plan</span>
+  </div>
+  <div class="cover-note">Source: SE Ranking AI Search research exports for sambilegal.com.au, Australia, October 2026 (97 topics; 388 domains cited in the same AI answers). Read alongside the growth proposal of 6 October 2026.</div>
+</section>
+
+<!-- ============ A ============ -->
+<section class="page">
+  <div class="topbar light"><div class="brand ink">legalbuzz<i>.</i></div><div class="eyebrow dk">A · Who AI cites</div></div>
+  <div class="sec-head">
+    <div class="eyebrow dk">A · Who AI cites</div>
+    <h2>AI does use your website, but less than three other firms' sites, and only through one engine.</h2>
+    <p>Being <b>named</b> is when AI writes "Sambi Legal" in its answer. Being <b>cited</b> is when AI links to your website as the source of what it says. Both matter: a citation is how AI learns about you, and a name is how clients hear about you.</p>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">How often AI cites each firm's website as a source</h3>
+    <div class="bars">
+      <div class="row"><div class="name">Hansen Migration<small>hansenmigration.com.au</small></div><div class="track"><div class="fill" style="width:100%"></div></div><div class="val">147</div></div>
+      <div class="row"><div class="name">Kah Lawyers<small>kahlawyers.com</small></div><div class="track"><div class="fill" style="width:83%"></div></div><div class="val">122</div></div>
+      <div class="row"><div class="name" style="color:var(--red)">Sambi Legal<small>sambilegal.com.au</small></div><div class="track"><div class="fill me" style="width:69.4%"></div></div><div class="val me">102</div></div>
+      <div class="row"><div class="name">Katsaros<small>katsaros.com.au</small></div><div class="track"><div class="fill" style="width:64%"></div></div><div class="val">94</div></div>
+      <div class="row"><div class="name">Dept. of Home Affairs<small>government, for reference</small></div><div class="track"><div class="fill gov" style="width:27.2%"></div></div><div class="val">40</div></div>
+    </div>
+    <div class="src">Citations across all 97 topics tracked. SE Ranking AI Search, Australia, October 2026.</div>
+  </div>
+
+  <h3>Which AI engines cite you</h3>
+  <div class="stats light" style="margin-top:0">
+    <div class="stat"><div class="num g">99</div><p>citations in topics answered by <b>Google's AI Overviews</b></p></div>
+    <div class="stat"><div class="num">13</div><p>citations in topics also answered by <b>Google AI Mode</b></p></div>
+    <div class="stat"><div class="num">11</div><p>citations in topics also answered by <b>Perplexity</b></p></div>
+  </div>
+  <p class="src">Some topics are answered by more than one engine, so these figures overlap and don't add to 102.</p>
+
+  <div class="plain"><b>In plain English:</b> Google's AI Overviews already read your pages, mainly because you rank well on Google. The AI tools that decide for the client (AI Mode, Perplexity and ChatGPT) rarely use you. That matches the proposal: Sambi was named in just 11 of 720 answers from ChatGPT, Perplexity, Google AI Mode and Claude (1.5%). Sambi leads in several smaller topics but trails in the two biggest immigration topics. The next page shows where.</div>
+
+  <div class="foot"><span>legalbuzz · Prepared for Sambi Legal</span><span>AI citations addendum · 2</span></div>
+</section>
+
+<!-- ============ B ============ -->
+<section class="page">
+  <div class="topbar light"><div class="brand ink">legalbuzz<i>.</i></div><div class="eyebrow dk">B · Topics you win</div></div>
+  <div class="sec-head">
+    <div class="eyebrow dk">B · Where AI cites you</div>
+    <h2>You lead on general immigration. You trail on the two biggest immigration topics.</h2>
+    <p>Each row is a group of client questions. "Size" is how many questions sit in that topic. The numbers are how many times AI cited each firm's site.</p>
+  </div>
+  <table>
+    <thead><tr><th>Topic (what clients ask about)</th><th class="n">Size</th><th class="n">Sambi</th><th class="n">Hansen</th><th class="n">Kah</th><th class="n">Katsaros</th><th>Verdict</th></tr></thead>
+    <tbody>
+      <tr><td><b>Visa application guidance</b><br><span class="src">Your largest topic: how to apply, which visa</span></td><td class="n">39,829</td><td class="n me">12</td><td class="n"><b>68</b></td><td class="n">4</td><td class="n">11</td><td><span class="tag behind">Behind Hansen</span></td></tr>
+      <tr><td><b>Immigration court and tribunal representation</b><br><span class="src">Refusals, cancellations, ART and court</span></td><td class="n">2,574</td><td class="n me">15</td><td class="n">3</td><td class="n"><b>66</b></td><td class="n">10</td><td><span class="tag behind">Behind Kah</span></td></tr>
+      <tr><td><b>Visa and immigration services</b></td><td class="n">12,930</td><td class="n me"><b>23</b></td><td class="n">4</td><td class="n">15</td><td class="n">18</td><td><span class="tag lead">You lead</span></td></tr>
+      <tr><td><b>Corporate lawyer listings</b></td><td class="n">9,655</td><td class="n me">7</td><td class="n">0</td><td class="n">8</td><td class="n">0</td><td><span class="tag close">Close behind</span></td></tr>
+      <tr><td><b>Lawyer referral services</b></td><td class="n">13,709</td><td class="n me"><b>4</b></td><td class="n">0</td><td class="n">3</td><td class="n">0</td><td><span class="tag lead">You lead</span></td></tr>
+      <tr><td><b>Citizenship applications</b></td><td class="n">8,754</td><td class="n me">2</td><td class="n"><b>4</b></td><td class="n">0</td><td class="n">0</td><td><span class="tag behind">Behind Hansen</span></td></tr>
+      <tr><td><b>Law firm legal services</b></td><td class="n">8,329</td><td class="n me"><b>3</b></td><td class="n">0</td><td class="n">1</td><td class="n">0</td><td><span class="tag lead">You lead</span></td></tr>
+      <tr><td><b>Bankruptcy and insolvency guides</b></td><td class="n">3,532</td><td class="n me">5</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td><span class="tag only">Only firm cited</span></td></tr>
+      <tr><td><b>Litigation and dispute resolution</b></td><td class="n">3,567</td><td class="n me">2</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td><span class="tag only">Only firm cited</span></td></tr>
+      <tr><td><b>Judicial and administrative review</b></td><td class="n">1,764</td><td class="n me">4</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td><span class="tag only">Only firm cited</span></td></tr>
+      <tr><td><b>Workplace complaints and unfair dismissal</b></td><td class="n">6,553</td><td class="n me">1</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td><span class="tag only">Only firm cited</span></td></tr>
+      <tr><td><b>Consumer protection and licensing enforcement</b></td><td class="n">1,139</td><td class="n me">1</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td><span class="tag only">Only firm cited</span></td></tr>
+    </tbody>
+  </table>
+  <p class="src">Topic names are simplified from SE Ranking's labels. The remaining 23 of Sambi's 102 citations are spread across 18 small or off-topic groups (1 to 3 each, such as sports statistics and card benefits). We've left those out.</p>
+
+  <div class="grid2" style="margin-top:6mm">
+    <div class="redcard"><h4>The big prize is visa guidance</h4><p>It's the largest topic by far (39,829 questions). Hansen Migration is cited 68 times there, Sambi 12. A visa guidance hub with real processing times, costs and common refusal reasons is how you close that gap.</p></div>
+    <div class="redcard"><h4>Kah Lawyers owns tribunal work</h4><p>Refusals and cancellations are Sambi's core immigration work, yet Kah is cited 66 times against your 15. Your s501 guide already ranks #1 on Google. Linking it into a refusals hub with a named lawyer gives AI a reason to choose you.</p></div>
+  </div>
+  <div class="foot"><span>legalbuzz · Prepared for Sambi Legal</span><span>AI citations addendum · 3</span></div>
+</section>
+
+<!-- ============ C ============ -->
+<section class="page">
+  <div class="topbar light"><div class="brand ink">legalbuzz<i>.</i></div><div class="eyebrow dk">C · Topics you're missing</div></div>
+  <div class="sec-head">
+    <div class="eyebrow dk">C · Where you're missing</div>
+    <h2>Eight immigration topics where AI cites a competitor and never Sambi.</h2>
+    <p>Every one of these sits inside work Sambi already does. None needs a new practice area, only a page that answers the question better than anyone else.</p>
+  </div>
+  <table>
+    <thead><tr><th>Topic</th><th class="n">Size</th><th>Who AI cites now</th><th>What we'd build for Sambi</th></tr></thead>
+    <tbody>
+      <tr><td><b>De facto and common-law relationships</b></td><td class="n">19,736</td><td>Hansen (2), Home Affairs (1). 13 brands named</td><td>De facto partner visa guide: evidence checklist, 12-month rule, common refusal reasons</td></tr>
+      <tr><td><b>Marriage and partner applications</b></td><td class="n">9,590</td><td>Hansen (19). 24 brands named</td><td>Merge your two partner visa pages into one deep guide with a named lawyer</td></tr>
+      <tr><td><b>Online visa lodgement (ImmiAccount)</b></td><td class="n">5,955</td><td>Hansen (4)</td><td>"Lodging online: mistakes that lead to refusal", tied to your refusals service</td></tr>
+      <tr><td><b>Refugee and protection visas</b></td><td class="n">4,997</td><td>Kah (4). 35 brands named</td><td>Rebuild the two duplicate protection visa pages as one authoritative guide</td></tr>
+      <tr><td><b>Character and police checks</b></td><td class="n">3,541</td><td>Katsaros (13)</td><td>Character test and s501 hub, built around your #1-ranking s501 article</td></tr>
+      <tr><td><b>Police records and disclosure</b></td><td class="n">3,186</td><td>Katsaros (6)</td><td>What to disclose, and how a record affects a visa, linked to the s501 hub</td></tr>
+      <tr><td><b>Visa processing times</b></td><td class="n">2,918</td><td>Katsaros (4), Hansen (2). 19 brands named</td><td>A processing time tracker that's updated monthly: original data AI can only get from you</td></tr>
+      <tr><td><b>Immigration policy changes</b></td><td class="n">2,714</td><td>Katsaros (2), Hansen (1). 21 brands named</td><td>Tanguy's monthly "What changed in migration law" commentary</td></tr>
+    </tbody>
+  </table>
+  <p class="src">"Brands named" is the number of firms and organisations AI mentions across that topic. US-only topics in the export, such as green cards and Medicaid, are left out.</p>
+
+  <div class="plain"><b>Why this works:</b> AI cites the page that adds something new. Processing times, refusal reasons and Tanguy's commentary are facts other firms don't publish. That's the "information gain" the proposal describes, aimed at topics where only one or two firms are cited today.</div>
+  <div class="foot"><span>legalbuzz · Prepared for Sambi Legal</span><span>AI citations addendum · 4</span></div>
+</section>
+
+<!-- ============ D ============ -->
+<section class="page">
+  <div class="topbar light"><div class="brand ink">legalbuzz<i>.</i></div><div class="eyebrow dk">D · Authority vs reputation</div></div>
+  <div class="sec-head">
+    <div class="eyebrow dk">D · Authority vs reputation</div>
+    <h2>Same authority as Kah Lawyers. Less reputation. That's the gap.</h2>
+    <p>Authority helps you rank on Google. Reputation helps AI decide who to recommend: reviews, listings, "best lawyer" lists and conversations on other sites.</p>
+  </div>
+  <table>
+    <thead><tr><th>Firm</th><th class="n">Domain strength</th><th class="n">Monthly Google visits (est.)</th><th class="n">AI citations</th></tr></thead>
+    <tbody>
+      <tr><td class="me">Sambi Legal</td><td class="n me">18</td><td class="n me">104</td><td class="n me">102</td></tr>
+      <tr><td>Kah Lawyers</td><td class="n">19</td><td class="n">297</td><td class="n">122</td></tr>
+      <tr><td>Hansen Migration</td><td class="n">44</td><td class="n">235</td><td class="n">147</td></tr>
+      <tr><td>Katsaros</td><td class="n">61</td><td class="n">129</td><td class="n">94</td></tr>
+    </tbody>
+  </table>
+  <p class="src">Domain strength (DT) and monthly visit estimates from SE Ranking.</p>
+
+  <h3>Websites AI cites alongside your competitors, much more than alongside you</h3>
+  <table>
+    <thead><tr><th>Website</th><th>What it is</th><th class="n">With competitors</th><th class="n">With Sambi</th></tr></thead>
+    <tbody>
+      <tr><td><b>bestlawyers.com</b></td><td>"Best Lawyers" rankings</td><td class="n">27 (Kah 26)</td><td class="n me">6</td></tr>
+      <tr><td><b>google.com</b></td><td>Google pages such as Maps and business listings</td><td class="n">42 (Kah 34)</td><td class="n me">10</td></tr>
+      <tr><td><b>lawsociety.com.au</b></td><td>Law Society</td><td class="n">30</td><td class="n me">3</td></tr>
+      <tr><td><b>reddit.com</b></td><td>Community discussions</td><td class="n">33</td><td class="n me">6</td></tr>
+      <tr><td><b>youtube.com</b></td><td>Explainer videos</td><td class="n">64</td><td class="n me">15</td></tr>
+      <tr><td><b>facebook.com</b></td><td>Social profiles and groups</td><td class="n">30</td><td class="n me">4</td></tr>
+      <tr><td><b>mara.gov.au</b></td><td>Migration agents register</td><td class="n">16</td><td class="n me">1</td></tr>
+    </tbody>
+  </table>
+  <p class="src">"With competitors" totals the Kah Lawyers, Katsaros and Hansen Migration columns in the SE Ranking export.</p>
+
+  <div class="grid2" style="margin-top:5mm">
+    <div class="redcard"><h4>Kah Lawyers proves it</h4><p>Kah has almost the same domain strength as Sambi (19 vs 18). The AI answers that cite Kah also lean on Best Lawyers (26 times) and Google listings (34 times), the reputation signals AI trusts. That gap can be closed without years of link building.</p></div>
+    <div class="redcard"><h4>Lawyer, not agent</h4><p>AI often sends immigration questions to the migration agents register. Sambi's pages should explain plainly why a lawyer can go further than an agent, at a tribunal or in court, so AI has a reason to recommend a firm like Sambi.</p></div>
+  </div>
+  <div class="foot"><span>legalbuzz · Prepared for Sambi Legal</span><span>AI citations addendum · 5</span></div>
+</section>
+
+<!-- ============ E ============ -->
+<section class="page">
+  <div class="topbar light"><div class="brand ink">legalbuzz<i>.</i></div><div class="eyebrow dk">E · What it adds to the plan</div></div>
+  <div class="sec-head">
+    <div class="eyebrow dk">E · What this adds to your plan</div>
+    <h2>Five additions to the growth plan, in the order we'd do them.</h2>
+    <p>These slot into the Analyse, Fix, Build and Buzz steps in your proposal. They don't replace anything, and they run alongside your current SEO provider.</p>
+  </div>
+  <div class="steps">
+    <div class="step"><div><h4>Claim the reputation listings AI already reads</h4><p>Google Business Profiles for Brisbane and Melbourne with reviews flowing in, Law Society listings, and a Best Lawyers submission. These are the sites AI cites next to Kah Lawyers and rarely next to you.</p></div></div>
+    <div class="step"><div><h4>Build the Visa Guidance and Refusals hubs first</h4><p>Visa guidance is the largest topic (39,829 questions) and tribunal representation is your core work. Both hubs go out under Tanguy's name, with real processing times, costs and refusal reasons.</p></div></div>
+    <div class="step"><div><h4>Fill the eight missing topics</h4><p>Partner and de facto visas, protection visas, character and s501, processing times and policy changes. Most come from merging the duplicate pages you already have.</p></div></div>
+    <div class="step"><div><h4>Get beyond Google's AI Overviews</h4><p>Short YouTube explainers from Tanguy, plus a presence where clients ask each other (Reddit and Facebook groups), so Perplexity, AI Mode and ChatGPT find independent proof, not just your website.</p></div></div>
+    <div class="step"><div><h4>Track citations and names every month</h4><p>We'll report both measures side by side. Names: how often AI says "Sambi Legal". Citations: how often AI links to sambilegal.com.au. Both are tracked against Hansen Migration, Kah Lawyers and Katsaros.</p></div></div>
+  </div>
+
+  <h3>How the numbers in your proposal fit together</h3>
+  <table>
+    <thead><tr><th>Measure</th><th>What it counts</th><th>Sambi today</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr><td><b>Named</b></td><td>AI writes "Sambi Legal" in its answer</td><td class="me">11 of 720 answers (1.5%)</td><td>DataForSEO, 6 Oct 2026: ChatGPT, Perplexity, AI Mode, Claude</td></tr>
+      <tr><td><b>Cited</b></td><td>AI links to sambilegal.com.au as a source</td><td class="me">102 citations; 99 via AI Overviews</td><td>SE Ranking AI Search, Oct 2026</td></tr>
+    </tbody>
+  </table>
+
+  <div class="cta">
+    <div><h2>We'd love to help Sambi Legal be the firm AI names first.</h2>
+    <p>No obligation, and you keep this audit either way.</p></div>
+    <span class="btn">Book your next call · start@legalbuzz.co</span>
+  </div>
+  <div class="foot"><span>legalbuzz · Prepared for Sambi Legal</span><span>AI citations addendum · 6</span></div>
+</section>
+</body>
+</html>

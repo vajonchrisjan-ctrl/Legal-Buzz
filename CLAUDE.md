@@ -81,3 +81,9 @@ action needed.
 
 In both cases: keep DETAILS/bullets terse — bullet points over paragraphs. Only include a NEXT
 line when there's an actual next step or open question.
+
+# Prospect proposal audits (separate from the JP Goldman scope above)
+When checking a legalbuzz proposal (legalbuzz.co/proposal/<firm>) against the prospect's site, or
+building an AI-citations addendum PDF from SE Ranking exports, use the `proposal-audit` skill in
+`.claude/skills/proposal-audit/`. One prospect per session. The JP Goldman scope rules above don't
+apply to that work.

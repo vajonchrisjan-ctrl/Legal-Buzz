@@ -1,0 +1,60 @@
+{
+  "client": {
+    "name": "JP Goldman",
+    "url": "https://www.jpgoldman.co.uk",
+    "report_date": "2026-10-19",
+    "prepared_by": "Legalbuzz SEO"
+  },
+  "site_health": {
+    "source": "Google Lighthouse (PageSpeed Insights), homepage",
+    "audited_on": "2026-10-19",
+    "mobile": {
+      "performance": 53, "accessibility": 75, "best_practices": 77, "seo": 100,
+      "lcp_s": 17.6, "cls": 0.169, "tbt_ms": 20, "fcp_s": 3.6, "si_s": 8.3,
+      "page_weight_kb": 4472
+    },
+    "desktop": {
+      "performance": 71, "accessibility": 75, "best_practices": 77, "seo": 100,
+      "lcp_s": 3.1, "cls": 0.11, "tbt_ms": 120, "fcp_s": 0.8, "si_s": 2.4,
+      "page_weight_kb": 4569
+    },
+    "platform": {
+      "CMS": "WordPress 7.1.3",
+      "Theme": "Salient 12.1.0 (WPBakery)",
+      "SEO plugin": "Yoast SEO",
+      "Caching": "SiteGround Speed Optimizer",
+      "Security": "Wordfence, SiteGround Security",
+      "Analytics": "Google Site Kit, Tag Manager"
+    },
+    "issues": [
+      { "area": "Speed", "issue": "Main content takes 17.6s to appear on mobile (target under 2.5s)", "priority": "High" },
+      { "area": "Speed", "issue": "Page weight about 4.5 MB; about 1.3 MB of CSS and JavaScript is unused", "priority": "High" },
+      { "area": "Speed", "issue": "Layout shifts while loading (CLS 0.17 mobile); images lack width and height", "priority": "Medium" },
+      { "area": "Speed", "issue": "CSS (105 KB) and JavaScript (93 KB) not minified", "priority": "Medium" },
+      { "area": "Accessibility", "issue": "Pinch-zoom disabled on mobile (viewport setting)", "priority": "Medium" },
+      { "area": "Accessibility", "issue": "Low text colour contrast; links distinguished by colour only", "priority": "Medium" },
+      { "area": "Accessibility", "issue": "Headings out of order; no main landmark; iframe and links without names", "priority": "Low" },
+      { "area": "Best practice", "issue": "Browser console errors and a deprecated API in use", "priority": "Low" }
+    ]
+  },
+  "rankings": {
+    "source": "Legalbuzz dashboard",
+    "as_of": null,
+    "location": [],
+    "service": []
+  },
+  "backlinks": {
+    "source": "Legalbuzz dashboard",
+    "as_of": null,
+    "metrics": {
+      "Referring domains": null,
+      "Total backlinks": null,
+      "Domain authority": null,
+      "Dofollow links": null,
+      "New links (30 days)": null,
+      "Lost links (30 days)": null
+    },
+    "top_referring_domains": [],
+    "top_anchors": []
+  }
+}

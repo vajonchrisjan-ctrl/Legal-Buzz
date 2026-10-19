@@ -1,0 +1,82 @@
+{
+  "client": {
+    "name": "Client Name",
+    "url": "https://www.example.co.uk",
+    "report_date": "YYYY-MM-DD",
+    "prepared_by": "Legalbuzz SEO"
+  },
+  "site_health": {
+    "source": "Google Lighthouse (PageSpeed Insights), homepage",
+    "audited_on": null,
+    "mobile": {
+      "performance": null,
+      "accessibility": null,
+      "best_practices": null,
+      "seo": null,
+      "lcp_s": null,
+      "cls": null,
+      "tbt_ms": null,
+      "fcp_s": null,
+      "si_s": null,
+      "page_weight_kb": null
+    },
+    "desktop": {
+      "performance": null,
+      "accessibility": null,
+      "best_practices": null,
+      "seo": null,
+      "lcp_s": null,
+      "cls": null,
+      "tbt_ms": null,
+      "fcp_s": null,
+      "si_s": null,
+      "page_weight_kb": null
+    },
+    "platform": {
+      "CMS": "",
+      "Theme": "",
+      "SEO plugin": ""
+    },
+    "issues": [
+      {
+        "area": "Speed",
+        "issue": "Describe the issue in plain English",
+        "priority": "High"
+      }
+    ]
+  },
+  "rankings": {
+    "source": "Legalbuzz dashboard",
+    "as_of": null,
+    "location": [
+      {
+        "keyword": "conveyancing solicitors <town>",
+        "volume": null,
+        "position": null,
+        "url": null
+      }
+    ],
+    "service": [
+      {
+        "keyword": "conveyancing solicitors",
+        "volume": null,
+        "position": null,
+        "url": null
+      }
+    ]
+  },
+  "backlinks": {
+    "source": "Legalbuzz dashboard",
+    "as_of": null,
+    "metrics": {
+      "Referring domains": null,
+      "Total backlinks": null,
+      "Domain authority": null,
+      "Dofollow links": null,
+      "New links (30 days)": null,
+      "Lost links (30 days)": null
+    },
+    "top_referring_domains": [],
+    "top_anchors": []
+  }
+}

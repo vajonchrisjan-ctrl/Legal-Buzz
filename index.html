@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Kinetic Agency CRM</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--primary:#003fb1;--primary-light:#d4dcff;--secondary:#00687a;--tertiary:#005438;--surface:#faf8ff;--sc:#eaedff;--scl:#f2f3ff;--on:#131b2e;--onv:#434654;--outline:#737686;--error:#ba1a1a;--line:#e2e8f0}
+html,body{height:100%;font-family:'Inter',system-ui,sans-serif;background:#e9ecf8;color:var(--on)}
+button,input,select,textarea{font:inherit;color:inherit}
+#app{position:relative;max-width:520px;height:100dvh;margin:0 auto;background:var(--surface);overflow:hidden;box-shadow:0 0 40px rgba(0,0,0,.08)}
+header{position:absolute;top:0;left:0;right:0;height:64px;background:rgba(255,255,255,.95);border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 12px;gap:8px;z-index:20}
+.logo{width:32px;height:32px;background:var(--primary);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
+.account{flex:1;min-width:0;background:var(--scl);padding:8px 12px;border-radius:8px}
+.account .st{display:flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:var(--tertiary);text-transform:uppercase}
+.dot{width:6px;height:6px;background:var(--tertiary);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.4}}
+.account .nm{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.icon-btn{width:44px;height:44px;border-radius:50%;background:none;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--onv);position:relative}
+.icon-btn:hover{background:var(--sc)}
+.ndot{position:absolute;top:9px;right:9px;min-width:16px;height:16px;padding:0 4px;background:var(--error);color:#fff;border-radius:8px;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid #fff}
+.avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;flex-shrink:0}
+main{position:absolute;top:64px;bottom:64px;left:0;right:0;overflow-y:auto}
+.section-header{display:flex;align-items:center;justify-content:space-between;padding:16px}
+.sub{font-size:11px;color:var(--onv);text-transform:uppercase;letter-spacing:.02em;font-weight:600}
+.title{font-size:14px;font-weight:600}
+.time-filter{display:flex;align-items:center;gap:4px;background:var(--scl);padding:6px 10px;border-radius:20px;font-size:12px;font-weight:600;border:none;cursor:pointer}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 8px}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.ml{font-size:12px;color:var(--onv);font-weight:600;text-transform:uppercase}
+.mv{font-size:22px;font-weight:700;line-height:1}
+.badge{display:inline-flex;align-items:center;gap:2px;width:fit-content;background:#ecfdf5;color:var(--tertiary);padding:4px 8px;border-radius:6px;font-size:11px;font-weight:600}
+.small{font-size:11px;color:var(--onv)}
+.bar{height:4px;background:var(--sc);border-radius:2px;overflow:hidden}.bar>div{height:100%;background:var(--primary)}
+.actions{padding:8px;display:flex;gap:8px;overflow-x:auto}
+.abtn{display:flex;flex-direction:column;align-items:center;gap:8px;background:none;border:none;cursor:pointer;padding:8px}
+.aicon{width:48px;height:48px;border-radius:12px;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 4px rgba(0,0,0,.08)}
+.abtn:active .aicon{transform:scale(.95)}
+.alabel{font-size:11px;font-weight:600}
+.tabs{display:flex;border-bottom:1px solid var(--line);padding:0 8px;overflow-x:auto;position:sticky;top:0;background:var(--surface);z-index:5}
+.tab{padding:12px;background:none;border:none;border-bottom:3px solid transparent;margin-bottom:-1px;font-size:13px;font-weight:600;color:var(--onv);cursor:pointer;white-space:nowrap}
+.tab.active{color:var(--primary);border-bottom-color:var(--primary)}
+.conv{display:flex;gap:12px;padding:12px 8px;border-bottom:1px solid var(--scl);cursor:pointer;align-items:flex-start}
+.conv:hover{background:var(--scl)}
+.conv.unread{background:var(--scl);border-left:3px solid var(--primary);padding-left:5px}
+.conv.unread .cn{color:var(--primary);font-weight:700}
+.cav{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;flex-shrink:0;position:relative}
+.ch{position:absolute;bottom:-3px;right:-3px;width:18px;height:18px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;border:1px solid var(--line)}
+.cc{flex:1;min-width:0}
+.crow{display:flex;justify-content:space-between;gap:8px}
+.cn{font-size:13px;font-weight:600}
+.ct{font-size:11px;color:var(--onv)}
+.cm{font-size:12px;color:var(--onv);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:4px}
+.pipeline{display:flex;gap:8px;padding:12px 8px;overflow-x:auto}
+.stage{padding:6px 12px;border-radius:6px;background:var(--scl);font-size:11px;font-weight:600;color:var(--onv);border:1px solid var(--line);cursor:pointer;white-space:nowrap}
+.stage.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+.opp{margin:0 8px 12px;cursor:pointer}
+.opp:active{transform:scale(.98)}
+.oh{display:flex;justify-content:space-between;gap:8px}
+.on{font-size:13px;font-weight:600}
+.ov{font-size:14px;font-weight:700;color:var(--primary);font-family:'Courier New',monospace}
+.of{display:flex;align-items:center;justify-content:space-between;padding-top:8px;border-top:1px solid var(--sc)}
+.oa{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;font-size:10px;font-weight:600;display:flex;align-items:center;justify-content:center}
+.qa{width:28px;height:28px;border-radius:6px;background:var(--scl);border:none;cursor:pointer;margin-left:4px}
+.qa:hover{background:var(--sc)}
+.empty{text-align:center;padding:40px 20px;color:var(--onv)}.empty .e{font-size:36px;margin-bottom:8px}
+nav{position:absolute;bottom:0;left:0;right:0;height:64px;background:#fff;border-top:1px solid var(--line);display:flex;z-index:20;padding-bottom:env(safe-area-inset-bottom)}
+.ni{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:none;border:none;cursor:pointer;color:var(--onv);font-size:11px;font-weight:600;position:relative}
+.ni.active{color:var(--primary)}
+.nb{position:absolute;top:4px;left:calc(50% + 6px);min-width:18px;height:18px;padding:0 4px;background:var(--error);color:#fff;border-radius:9px;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center}
+/* modal */
+.overlay{position:absolute;inset:0;background:rgba(19,27,46,.45);z-index:50;display:flex;align-items:flex-end}
+.sheet{background:#fff;width:100%;max-height:92%;border-radius:20px 20px 0 0;display:flex;flex-direction:column;animation:up .2s ease-out}
+@keyframes up{from{transform:translateY(40px);opacity:0}}
+.sh{display:flex;align-items:center;justify-content:space-between;padding:16px;border-bottom:1px solid var(--line)}
+.sh h3{font-size:16px}
+.sb{padding:16px;overflow-y:auto;display:flex;flex-direction:column;gap:12px}
+label{font-size:12px;font-weight:600;color:var(--onv);display:flex;flex-direction:column;gap:4px}
+input,select,textarea{border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:#fff;font-size:14px;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--primary)}
+.btn{background:var(--primary);color:#fff;border:none;border-radius:8px;padding:12px;font-weight:600;cursor:pointer}
+.btn.sec{background:var(--sc);color:var(--on)}.btn.danger{background:#fde8e8;color:var(--error)}
+.row{display:flex;gap:8px}.row>*{flex:1}
+.msgs{display:flex;flex-direction:column;gap:8px;min-height:160px}
+.msg{max-width:80%;padding:8px 12px;border-radius:14px;font-size:13px;line-height:1.4}
+.msg.in{background:var(--sc);align-self:flex-start;border-bottom-left-radius:4px}
+.msg.out{background:var(--primary);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.msg small{display:block;font-size:10px;opacity:.7;margin-top:2px}
+.compose{display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--line)}.compose input{flex:1}
+.compose .btn{padding:0 16px}
+.toast{position:absolute;bottom:80px;left:50%;transform:translateX(-50%);background:var(--on);color:#fff;padding:10px 16px;border-radius:8px;font-size:13px;z-index:100;animation:up .2s}
+.li{display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--scl);cursor:pointer}
+.li.unread .cn{color:var(--primary)}
+.link{background:none;border:none;color:var(--primary);font-weight:600;cursor:pointer;font-size:12px}
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <div class="logo">K</div>
+    <div class="account"><div class="st"><span class="dot"></span>Live Account</div><div class="nm">Apex Growth Agency</div></div>
+    <button class="icon-btn" onclick="openSearch()" aria-label="Search"><span class="material-symbols-outlined">search</span></button>
+    <button class="icon-btn" onclick="openNotifications()" aria-label="Notifications"><span class="material-symbols-outlined">notifications</span><span class="ndot" id="ndot"></span></button>
+    <div class="avatar">AK</div>
+  </header>
+  <main id="main"></main>
+  <nav id="nav"></nav>
+</div>
+<script>
+const KEY='kinetic-crm-v1';
+const STAGES=[['inquiry','Inquiry'],['proposal','Proposal'],['negotiation','Negotiation'],['won','Closed Won']];
+const CHANNELS={chat:'💬',sms:'☎️',email:'📧'};
+const GRADS=['#003fb1,#00687a','#00687a,#4dd7f6','#005438,#6ffbbe','#1a56db,#b5c4ff','#7c3aed,#c4b5fd','#d97706,#fcd34d'];
+const DAY=864e5, now=()=>Date.now();
+const uid=()=>Math.random().toString(36).slice(2,10);
+
+function seed(){
+  const t=now();
+  const contacts=[
+    {id:'c1',name:'James Mitchell',company:'Acme Corporation',email:'james@acme.com',phone:'+1 555 0101'},
+    {id:'c2',name:'Sarah Mitchell',company:'TechFlow Inc',email:'sarah@techflow.io',phone:'+1 555 0102'},
+    {id:'c3',name:'David Long',company:'Global Corp',email:'david@globalcorp.com',phone:'+1 555 0103'},
+    {id:'c4',name:'Emma Roberts',company:'Bright Studios',email:'emma@brightstudios.co',phone:'+1 555 0104'}];
+  const conversations=[
+    {id:'v1',contactId:'c1',channel:'chat',unread:true,messages:[{from:'in',text:'Ready to move forward with proposal...',at:t-6e4}]},
+    {id:'v2',contactId:'c2',channel:'sms',unread:true,messages:[{from:'in',text:'Can we schedule a call for tomorrow?',at:t-12e4}]},
+    {id:'v3',contactId:'c3',channel:'email',unread:false,messages:[{from:'in',text:'Got the docs, reviewing now...',at:t-9e5}]},
+    {id:'v4',contactId:'c4',channel:'chat',unread:false,messages:[{from:'in',text:'Need clarification on pricing...',at:t-36e5}]}];
+  const deals=[
+    {id:'d1',name:'Acme Corp Rebrand',contactId:'c1',value:24500,stage:'negotiation',createdAt:t-3*DAY},
+    {id:'d2',name:'TechFlow Integration',contactId:'c2',value:18900,stage:'proposal',createdAt:t-5*DAY},
+    {id:'d3',name:'Global Enterprise Suite',contactId:'c3',value:42000,stage:'inquiry',createdAt:t-2*DAY},
+    {id:'d4',name:'Bright Studios Launch',contactId:'c4',value:22600,stage:'won',createdAt:t-9*DAY},
+    {id:'d5',name:'Northwind Retainer',contactId:'c4',value:20000,stage:'won',createdAt:t-14*DAY}];
+  const notifications=[
+    {id:'n1',text:'James Mitchell replied to your proposal',at:t-6e4,read:false},
+    {id:'n2',text:'Deal "Acme Corp Rebrand" moved to Negotiation',at:t-DAY,read:false}];
+  return {contacts,conversations,deals,notifications};
+}
+let S;
+try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){}
+if(!S)S=seed();
+const ui={tab:'conversations',nav:'dashboard',stage:'all',range:'month',toastT:null};
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const money=n=>'$'+Math.round(n).toLocaleString('en-US');
+const initials=n=>n.split(/\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase();
+const contact=id=>S.contacts.find(c=>c.id===id)||{name:'Unknown',company:''};
+const grad=id=>{let h=0;for(const ch of id)h=(h*31+ch.charCodeAt(0))%GRADS.length;return `linear-gradient(135deg,${GRADS[h].split(',').join(',')})`};
+function ago(t){const s=(now()-t)/1000;if(s<60)return 'now';if(s<3600)return Math.floor(s/60)+'m ago';if(s<86400)return Math.floor(s/3600)+'h ago';return Math.floor(s/86400)+'d ago'}
+function toast(m){document.querySelector('.toast')?.remove();const e=document.createElement('div');e.className='toast';e.textContent=m;document.getElementById('app').append(e);clearTimeout(ui.toastT);ui.toastT=setTimeout(()=>e.remove(),2200)}
+function notify(text){S.notifications.unshift({id:uid(),text,at:now(),read:false})}
+
+const RANGES={month:['This Month',()=>{const d=new Date();return new Date(d.getFullYear(),d.getMonth(),1).getTime()}],d30:['Last 30 Days',()=>now()-30*DAY],all:['All Time',()=>0]};
+const inRange=d=>d.createdAt>=RANGES[ui.range][1]();
+
+function metrics(){
+  const ds=S.deals.filter(inRange);
+  const open=ds.filter(d=>d.stage!=='won'),won=ds.filter(d=>d.stage==='won');
+  return {pipeline:open.reduce((a,d)=>a+d.value,0),won:won.reduce((a,d)=>a+d.value,0),wonN:won.length,
+    conv:ds.length?won.length/ds.length*100:0,total:ds.length,inboxes:S.conversations.length};
+}
+
+/* ---------- render ---------- */
+function render(){
+  const m=metrics(),unread=S.conversations.filter(c=>c.unread).length,nun=S.notifications.filter(n=>!n.read).length;
+  const nd=document.getElementById('ndot');nd.textContent=nun;nd.style.display=nun?'flex':'none';
+  const dash=ui.nav==='dashboard';
+  let h='';
+  if(dash){
+    h+=`<div class="section-header"><div><div class="sub">Pulse Engine Active</div><div class="title">Revenue Command</div></div>
+      <button class="time-filter" onclick="openRange()"><span class="material-symbols-outlined" style="font-size:16px">calendar_today</span>${RANGES[ui.range][0]}<span class="material-symbols-outlined" style="font-size:16px">keyboard_arrow_down</span></button></div>
+    <div class="metrics">
+      <div class="card"><div class="ml">Pipeline Value</div><div class="mv">${money(m.pipeline)}</div><div class="badge"><span class="material-symbols-outlined" style="font-size:14px">trending_up</span>${S.deals.filter(d=>inRange(d)&&d.stage!=='won').length} open</div></div>
+      <div class="card"><div class="ml">Closed Won</div><div class="mv" style="color:var(--tertiary)">${money(m.won)}</div><div class="small">${m.wonN} Won • ${m.total?Math.round(m.wonN/m.total*100):0}%</div></div>
+      <div class="card"><div class="ml">Conv. Rate</div><div class="mv">${m.conv.toFixed(1)}%</div><div class="bar"><div style="width:${m.conv}%"></div></div></div>
+      <div class="card"><div class="ml">Active Inboxes</div><div class="mv">${m.inboxes}</div><div class="small">${unread} unread</div></div>
+    </div>
+    <div style="padding:12px 16px 0" class="sub">Quick Actions</div>
+    <div class="actions">
+      <button class="abtn" onclick="openLead()"><div class="aicon" style="background:var(--primary)"><span class="material-symbols-outlined">person_add</span></div><div class="alabel">New Lead</div></button>
+      <button class="abtn" onclick="pickContact('Call Lead','call')"><div class="aicon" style="background:var(--secondary)"><span class="material-symbols-outlined">call</span></div><div class="alabel">Call Lead</div></button>
+      <button class="abtn" onclick="pickContact('Send SMS','sms')"><div class="aicon" style="background:var(--tertiary)"><span class="material-symbols-outlined">sms</span></div><div class="alabel">Send SMS</div></button>
+      <button class="abtn" onclick="go('pipeline')"><div class="aicon" style="background:#d97706"><span class="material-symbols-outlined">trending_up</span></div><div class="alabel">Pipeline</div></button>
+    </div>`;
+  }
+  h+=`<div class="tabs">${[['conversations','Conversations'],['opportunities','Opportunities'],['contacts','Contacts']].map(([k,l])=>`<button class="tab ${ui.tab===k?'active':''}" onclick="setTab('${k}')">${l}</button>`).join('')}</div>`;
+  h+=ui.tab==='conversations'?convHtml():ui.tab==='opportunities'?oppHtml():contactsHtml();
+  document.getElementById('main').innerHTML=h;
+  const items=[['dashboard','dashboard','Dashboard'],['conversations','chat_bubble','Inbox'],['pipeline','trending_up','Pipeline'],['contacts','person','Contacts'],['more','more_horiz','More']];
+  document.getElementById('nav').innerHTML=items.map(([k,i,l])=>`<button class="ni ${ui.nav===k?'active':''}" onclick="go('${k}')"><span class="material-symbols-outlined">${i}</span>${l}${k==='conversations'&&unread?`<span class="nb">${unread}</span>`:''}</button>`).join('');
+}
+function convHtml(){
+  if(!S.conversations.length)return '<div class="empty"><div class="e">💬</div>No conversations yet</div>';
+  return [...S.conversations].sort((a,b)=>last(b).at-last(a).at).map(v=>{const c=contact(v.contactId),m=last(v);
+    return `<div class="conv ${v.unread?'unread':''}" onclick="openChat('${v.id}')"><div class="cav" style="background:${grad(c.id||'x')}">${esc(initials(c.name))}<div class="ch">${CHANNELS[v.channel]}</div></div>
+    <div class="cc"><div class="crow"><div class="cn">${esc(c.name)}</div><div class="ct">${ago(m.at)}</div></div><div class="cm">${m.from==='out'?'You: ':''}${esc(m.text)}</div></div></div>`}).join('');
+}
+const last=v=>v.messages[v.messages.length-1];
+function oppHtml(){
+  const ds=S.deals.filter(d=>ui.stage==='all'||d.stage===ui.stage);
+  let h=`<div class="pipeline"><button class="stage ${ui.stage==='all'?'active':''}" onclick="setStage('all')">All Deals</button>${STAGES.map(([k,l])=>`<button class="stage ${ui.stage===k?'active':''}" onclick="setStage('${k}')">${l}</button>`).join('')}</div>`;
+  h+=`<div style="padding:0 8px 8px"><button class="btn" style="width:100%" onclick="openDeal()">+ New Deal</button></div>`;
+  if(!ds.length)return h+'<div class="empty"><div class="e">📭</div>No deals in this stage</div>';
+  return h+ds.map(d=>{const c=contact(d.contactId);return `<div class="card opp" onclick="openDeal('${d.id}')"><div class="oh"><div class="on">${esc(d.name)}</div><div class="ov">${money(d.value)}</div></div>
+    <div class="small">${esc(c.company||c.name)} • ${STAGES.find(s=>s[0]===d.stage)[1]}</div>
+    <div class="of"><div class="oa">${esc(initials(c.name))}</div><div onclick="event.stopPropagation()"><button class="qa" title="Call" onclick="openCall('${c.id}')">📞</button><button class="qa" title="Message" onclick="messageContact('${c.id}')">💬</button></div></div></div>`}).join('');
+}
+function contactsHtml(){
+  let h=`<div style="padding:12px 8px 0"><button class="btn" style="width:100%" onclick="openLead()">+ New Contact</button></div><div style="padding:8px">`;
+  if(!S.contacts.length)return h+'<div class="empty"><div class="e">👥</div>No contacts yet</div></div>';
+  return h+S.contacts.map(c=>`<div class="li" onclick="openContact('${c.id}')"><div class="cav" style="background:${grad(c.id)}">${esc(initials(c.name))}</div><div class="cc"><div class="cn">${esc(c.name)}</div><div class="cm">${esc(c.company||c.email||'')}</div></div></div>`).join('')+'</div>';
+}
+
+/* ---------- navigation ---------- */
+function setTab(t){ui.tab=t;render()}
+function setStage(s){ui.stage=s;render()}
+function go(n){
+  ui.nav=n;
+  if(n==='dashboard'){}
+  else if(n==='conversations')ui.tab='conversations';
+  else if(n==='pipeline')ui.tab='opportunities';
+  else if(n==='contacts')ui.tab='contacts';
+  else if(n==='more'){ui.nav='dashboard';openMore();return render()}
+  render();
+  document.getElementById('main').scrollTo(0,n==='dashboard'?0:0);
+}
+
+/* ---------- modal helper ---------- */
+function modal(title,body,foot=''){
+  closeModal();
+  const o=document.createElement('div');o.className='overlay';o.id='modal';
+  o.innerHTML=`<div class="sheet"><div class="sh"><h3>${title}</h3><button class="icon-btn" style="width:32px;height:32px" onclick="closeModal()"><span class="material-symbols-outlined">close</span></button></div><div class="sb" id="mbody">${body}</div>${foot}</div>`;
+  o.addEventListener('mousedown',e=>{if(e.target===o)closeModal()});
+  document.getElementById('app').append(o);
+  o.querySelector('input:not([type=hidden]),select')?.focus();
+  return o;
+}
+const closeModal=()=>document.getElementById('modal')?.remove();
+const $=id=>document.getElementById(id);
+
+/* ---------- features ---------- */
+function openRange(){
+  modal('Time Range',Object.entries(RANGES).map(([k,[l]])=>`<button class="btn ${ui.range===k?'':'sec'}" onclick="ui.range='${k}';closeModal();render()">${l}</button>`).join(''));
+}
+function openLead(){
+  const o=modal('New Lead',`<label>Name*<input id="f-name"></label><label>Company<input id="f-co"></label>
+    <div class="row"><label>Email<input id="f-em" type="email"></label><label>Phone<input id="f-ph" type="tel"></label></div>
+    <label>Deal value ($, optional)<input id="f-val" type="number" min="0"></label><button class="btn" id="f-save">Add Lead</button>`);
+  $('f-save').onclick=()=>{
+    const name=$('f-name').value.trim();if(!name)return toast('Name is required');
+    const c={id:uid(),name,company:$('f-co').value.trim(),email:$('f-em').value.trim(),phone:$('f-ph').value.trim()};
+    S.contacts.unshift(c);
+    const val=parseFloat($('f-val').value);
+    if(val>0)S.deals.unshift({id:uid(),name:(c.company||c.name)+' Deal',contactId:c.id,value:val,stage:'inquiry',createdAt:now()});
+    notify(`New lead added: ${name}`);save();closeModal();render();toast('Lead added');
+  };
+}
+function pickContact(title,mode){
+  if(!S.contacts.length)return toast('Add a contact first');
+  modal(title,S.contacts.map(c=>`<div class="li" onclick="${mode==='call'?`openCall('${c.id}')`:`messageContact('${c.id}')`}"><div class="cav" style="background:${grad(c.id)}">${esc(initials(c.name))}</div><div class="cc"><div class="cn">${esc(c.name)}</div><div class="cm">${esc(c.phone||'No phone')}</div></div></div>`).join(''));
+}
+function openCall(id){
+  const c=contact(id);
+  modal('Call '+esc(c.name),`<div style="text-align:center"><div class="avatar" style="width:72px;height:72px;margin:0 auto 8px;font-size:24px">${esc(initials(c.name))}</div><div class="cn">${esc(c.name)}</div><div class="small">${esc(c.phone||'No phone number')}</div></div>
+    <label>Call notes<textarea id="f-note" rows="3" placeholder="Summary of the call…"></textarea></label>
+    ${c.phone?`<a class="btn" style="text-align:center;text-decoration:none" href="tel:${esc(c.phone.replace(/\s/g,''))}">Dial</a>`:''}<button class="btn sec" id="f-log">Log call</button>`);
+  $('f-log').onclick=()=>{notify(`Call logged with ${c.name}`);const n=$('f-note').value.trim();
+    if(n){let v=S.conversations.find(v=>v.contactId===id);if(v)v.messages.push({from:'out',text:'📞 Call note: '+n,at:now()})}
+    save();closeModal();render();toast('Call logged')};
+}
+function messageContact(id){
+  let v=S.conversations.find(v=>v.contactId===id);
+  if(!v){v={id:uid(),contactId:id,channel:'sms',unread:false,messages:[]};S.conversations.push(v)}
+  openChat(v.id);
+}
+function openChat(id){
+  const v=S.conversations.find(v=>v.id===id),c=contact(v.contactId);
+  if(v.unread){v.unread=false;save();render()}
+  const draw=()=>v.messages.map(m=>`<div class="msg ${m.from}">${esc(m.text)}<small>${ago(m.at)}</small></div>`).join('')||'<div class="empty">No messages yet — say hello</div>';
+  const o=modal(`${esc(c.name)} ${CHANNELS[v.channel]}`,`<div class="msgs" id="msgs">${draw()}</div>`,
+    `<form class="compose" id="cf"><input id="ci" placeholder="Type a message…" autocomplete="off"><button class="btn">Send</button></form>`);
+  const box=o.querySelector('.sb');box.scrollTop=box.scrollHeight;
+  $('cf').onsubmit=e=>{e.preventDefault();const t=$('ci').value.trim();if(!t)return;
+    v.messages.push({from:'out',text:t,at:now()});$('ci').value='';save();$('msgs').innerHTML=draw();box.scrollTop=box.scrollHeight;render();
+    setTimeout(()=>autoReply(v),2500+Math.random()*2000)};
+}
+const REPLIES=['Thanks, that works for me.','Great — can you send over the details?','Let me check with my team and get back to you.','Sounds good, talk soon!','Could we do a quick call tomorrow?'];
+function autoReply(v){
+  v.messages.push({from:'in',text:REPLIES[Math.floor(Math.random()*REPLIES.length)],at:now()});
+  const open=$('modal')&&$('msgs')&&document.querySelector('.sh h3')?.textContent.startsWith(contact(v.contactId).name);
+  if(open){$('msgs').innerHTML=v.messages.map(m=>`<div class="msg ${m.from}">${esc(m.text)}<small>${ago(m.at)}</small></div>`).join('');const b=document.querySelector('.sb');b.scrollTop=b.scrollHeight}
+  else{v.unread=true;notify(`${contact(v.contactId).name} replied`);toast(`New message from ${contact(v.contactId).name}`)}
+  save();render();
+}
+function openDeal(id){
+  const d=id?S.deals.find(x=>x.id===id):{name:'',contactId:S.contacts[0]?.id,value:'',stage:'inquiry'};
+  if(!S.contacts.length)return toast('Add a contact first');
+  modal(id?'Edit Deal':'New Deal',`<label>Deal name*<input id="f-dn" value="${esc(d.name)}"></label>
+    <label>Contact<select id="f-dc">${S.contacts.map(c=>`<option value="${c.id}" ${c.id===d.contactId?'selected':''}>${esc(c.name)}</option>`).join('')}</select></label>
+    <div class="row"><label>Value ($)<input id="f-dv" type="number" min="0" value="${esc(d.value)}"></label>
+    <label>Stage<select id="f-ds">${STAGES.map(([k,l])=>`<option value="${k}" ${k===d.stage?'selected':''}>${l}</option>`).join('')}</select></label></div>
+    <button class="btn" id="f-save">Save</button>${id?'<button class="btn danger" id="f-del">Delete deal</button>':''}`);
+  $('f-save').onclick=()=>{
+    const name=$('f-dn').value.trim(),val=parseFloat($('f-dv').value);
+    if(!name)return toast('Deal name is required');if(!(val>=0))return toast('Enter a valid value');
+    const stage=$('f-ds').value;
+    if(id){if(d.stage!==stage)notify(`Deal "${name}" moved to ${STAGES.find(s=>s[0]===stage)[1]}`);Object.assign(d,{name,contactId:$('f-dc').value,value:val,stage})}
+    else S.deals.unshift({id:uid(),name,contactId:$('f-dc').value,value:val,stage,createdAt:now()});
+    save();closeModal();render();toast('Deal saved');
+  };
+  if(id)$('f-del').onclick=()=>{if(confirm('Delete this deal?')){S.deals=S.deals.filter(x=>x.id!==id);save();closeModal();render();toast('Deal deleted')}};
+}
+function openContact(id){
+  const c=S.contacts.find(x=>x.id===id);
+  modal('Contact',`<label>Name<input id="f-name" value="${esc(c.name)}"></label><label>Company<input id="f-co" value="${esc(c.company)}"></label>
+    <div class="row"><label>Email<input id="f-em" value="${esc(c.email)}"></label><label>Phone<input id="f-ph" value="${esc(c.phone)}"></label></div>
+    <div class="row"><button class="btn sec" onclick="openCall('${id}')">📞 Call</button><button class="btn sec" onclick="messageContact('${id}')">💬 Message</button></div>
+    <button class="btn" id="f-save">Save</button><button class="btn danger" id="f-del">Delete contact</button>`);
+  $('f-save').onclick=()=>{const n=$('f-name').value.trim();if(!n)return toast('Name is required');
+    Object.assign(c,{name:n,company:$('f-co').value.trim(),email:$('f-em').value.trim(),phone:$('f-ph').value.trim()});save();closeModal();render();toast('Contact saved')};
+  $('f-del').onclick=()=>{if(confirm('Delete contact and their deals/conversations?')){
+    S.contacts=S.contacts.filter(x=>x.id!==id);S.deals=S.deals.filter(d=>d.contactId!==id);S.conversations=S.conversations.filter(v=>v.contactId!==id);save();closeModal();render()}};
+}
+function openNotifications(){
+  const draw=()=>S.notifications.length?S.notifications.map(n=>`<div class="li ${n.read?'':'unread'}"><div class="cc"><div class="cn" style="font-weight:${n.read?500:700}">${esc(n.text)}</div><div class="ct">${ago(n.at)}</div></div></div>`).join(''):'<div class="empty"><div class="e">🔔</div>All caught up</div>';
+  modal('Notifications',`<button class="link" style="align-self:flex-end" id="mr">Mark all read</button><div>${draw()}</div>`);
+  $('mr').onclick=()=>{S.notifications.forEach(n=>n.read=true);save();closeModal();render()};
+}
+function openSearch(){
+  modal('Search',`<input id="q" placeholder="Search contacts, deals, messages…"><div id="res"></div>`);
+  const run=()=>{
+    const q=$('q').value.trim().toLowerCase();if(!q)return $('res').innerHTML='<div class="small">Start typing to search.</div>';
+    const cs=S.contacts.filter(c=>[c.name,c.company,c.email,c.phone].join(' ').toLowerCase().includes(q));
+    const ds=S.deals.filter(d=>(d.name+contact(d.contactId).name).toLowerCase().includes(q));
+    const vs=S.conversations.filter(v=>v.messages.some(m=>m.text.toLowerCase().includes(q)));
+    let h='';
+    if(cs.length)h+='<div class="sub">Contacts</div>'+cs.map(c=>`<div class="li" onclick="openContact('${c.id}')"><div class="cc"><div class="cn">${esc(c.name)}</div><div class="cm">${esc(c.company)}</div></div></div>`).join('');
+    if(ds.length)h+='<div class="sub" style="margin-top:8px">Deals</div>'+ds.map(d=>`<div class="li" onclick="openDeal('${d.id}')"><div class="cc"><div class="cn">${esc(d.name)}</div><div class="cm">${money(d.value)}</div></div></div>`).join('');
+    if(vs.length)h+='<div class="sub" style="margin-top:8px">Conversations</div>'+vs.map(v=>`<div class="li" onclick="openChat('${v.id}')"><div class="cc"><div class="cn">${esc(contact(v.contactId).name)}</div><div class="cm">${esc(last(v).text)}</div></div></div>`).join('');
+    $('res').innerHTML=h||'<div class="empty">No results</div>';
+  };
+  $('q').oninput=run;run();
+}
+function openMore(){
+  modal('More',`<button class="btn sec" onclick="exportData()">Export data (JSON)</button>
+    <button class="btn danger" onclick="if(confirm('Reset all data to the demo set?')){S=seed();save();closeModal();render();toast('Data reset')}">Reset demo data</button>
+    <div class="small" style="text-align:center">Data is stored locally in your browser.</div>`);
+}
+function exportData(){
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(S,null,2)],{type:'application/json'}));
+  a.download='crm-export.json';a.click();URL.revokeObjectURL(a.href);
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+setInterval(()=>{if(!$('modal'))render()},60000);
+render();
+</script>
+</body>
+</html>

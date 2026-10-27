@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Creative Studio</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#0f172a;--mut:#64748b;--line:#e2e8f0;--brand:#4f46e5;--ok:#16a34a}
+@media (prefers-color-scheme:dark){:root{--bg:#0b0f17;--card:#141a26;--ink:#e8edf6;--mut:#94a3b8;--line:#243049;--brand:#818cf8}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{padding:20px 24px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+h1{font-size:18px;margin:0}.pill{font-size:12px;padding:3px 10px;border-radius:99px;border:1px solid var(--line);color:var(--mut)}
+main{max-width:1100px;margin:0 auto;padding:24px 16px 64px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+form{display:grid;gap:12px}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:600px){.row{grid-template-columns:1fr}}
+label{font-size:12px;color:var(--mut);display:block;margin-bottom:4px}
+input,textarea,select{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit}
+textarea{min-height:70px;resize:vertical}
+button.go{background:var(--brand);color:#fff;border:0;border-radius:10px;padding:12px 18px;font:600 15px inherit;cursor:pointer}
+button.go:disabled{opacity:.6;cursor:wait}
+.agents{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}@media(max-width:700px){.agents{grid-template-columns:1fr}}
+.agent{display:flex;gap:10px;align-items:flex-start}.agent .ic{font-size:22px}.agent b{display:block}.agent small{color:var(--mut)}
+.st{margin-left:auto;font-size:12px;color:var(--mut);white-space:nowrap}
+.agent.working{border-color:var(--brand)}.agent.working .st{color:var(--brand)}.agent.done .st{color:var(--ok)}
+.agent.working .ic{animation:pulse 1s infinite}@keyframes pulse{50%{opacity:.35}}
+.tabs{display:flex;gap:8px;margin:8px 0 16px;flex-wrap:wrap}
+.tab{padding:10px 16px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;font:600 14px inherit}
+.tab.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+.hide{display:none}.err{color:#dc2626;margin-top:8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;align-items:start}
+.lbl{font-size:12px;color:var(--mut);margin:0 0 8px;text-transform:uppercase;letter-spacing:.05em}
+.tools{display:flex;justify-content:flex-end;gap:8px;margin-bottom:12px}
+.tools button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:6px 12px;cursor:pointer}
+/* creative surfaces */
+.vis{position:relative;aspect-ratio:1/1;border-radius:10px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:7%}
+.vis .blob{position:absolute;border-radius:50%;filter:blur(2px);opacity:.9}
+.vis .mark{position:absolute;top:6%;left:7%;font-size:28px}
+.vis h3{position:relative;margin:0 0 8px;font-size:clamp(22px,4vw,32px);line-height:1.1}
+.vis p{position:relative;margin:0;font-size:13px;opacity:.85}
+.f-serif{font-family:Georgia,'Times New Roman',serif}.f-sans{font-family:system-ui,sans-serif;font-weight:700}.f-display{font-family:Impact,'Arial Black',sans-serif;letter-spacing:.01em;text-transform:uppercase}
+.lay-minimal .blob{display:none}.lay-minimal{justify-content:center}
+.lay-split{justify-content:flex-start}
+.ad-top{font-size:14px;margin:8px 0}.ad-bar{display:flex;justify-content:space-between;align-items:center;padding:10px 0 0;gap:8px}
+.cta{padding:8px 14px;border-radius:6px;font-weight:600;font-size:13px;border:0}
+.who{display:flex;gap:8px;align-items:center;margin-bottom:8px}.av{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-weight:700}
+.g-url{color:#188038;font-size:13px}.g-h{color:#1a0dab;font-size:19px;margin:2px 0}.g-d{color:#4d5156;font-size:14px}
+.gcard{background:#fff;color:#202124;border-radius:10px;padding:14px;border:1px solid var(--line)}
+.doc{background:#fff;color:#1a1a1a;border-radius:6px;box-shadow:0 2px 14px rgba(0,0,0,.18);margin:0 auto 18px;max-width:760px;overflow:hidden}
+.doc .cover{padding:64px 48px;min-height:300px;display:flex;flex-direction:column;justify-content:flex-end}
+.doc .cover h2{font-size:38px;margin:8px 0;line-height:1.1}.doc .pg{padding:36px 48px}
+.doc h4{margin:20px 0 6px;font-size:13px;text-transform:uppercase;letter-spacing:.08em}.doc h4:first-child{margin-top:0}
+.doc p,.doc li{font-size:14.5px}.doc table{width:100%;border-collapse:collapse}.doc td{padding:7px 0;border-bottom:1px solid #e5e7eb;font-size:14px}.doc td:last-child{text-align:right;font-weight:600}
+.tl{display:grid;gap:8px}.tl div{padding:10px 12px;border-left:4px solid;background:#f8fafc;border-radius:0 6px 6px 0;font-size:14px}
+.post{background:#fff;color:#1a1a1a;border-radius:10px;padding:16px;border:1px solid var(--line)}
+.post .body{white-space:pre-wrap;font-size:14.5px}.tags{color:#0a66c2;margin-top:8px}
+.car{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px;scroll-snap-type:x mandatory}.car .vis{flex:0 0 260px;scroll-snap-align:start}
+.n{position:relative;font-size:12px;opacity:.7;margin-bottom:6px}
+</style>
+</head>
+<body>
+<header><h1>✨ Creative Studio</h1><span class="pill" id="mode">checking…</span></header>
+<main>
+  <form id="f" class="card">
+    <div><label>Title or idea</label><textarea id="idea" placeholder="e.g. Fixed-fee conveyancing for first-time buyers" required></textarea></div>
+    <div class="row">
+      <div><label>Brand / company (optional)</label><input id="brand" placeholder="e.g. JP Goldman"></div>
+      <div><label>Tone</label><select id="tone"><option>professional and warm</option><option>bold and punchy</option><option>friendly and conversational</option><option>premium and authoritative</option><option>playful</option></select></div>
+    </div>
+    <button class="go" id="go">Create with my 3 agents</button>
+    <div class="err" id="err"></div>
+  </form>
+
+  <div class="agents">
+    <div class="card agent" id="a-research"><span class="ic">🔎</span><div><b>Research Agent</b><small id="n-research">Waiting for your idea</small></div><span class="st">idle</span></div>
+    <div class="card agent" id="a-writing"><span class="ic">✍️</span><div><b>Writing Agent</b><small id="n-writing">Waiting for research</small></div><span class="st">idle</span></div>
+    <div class="card agent" id="a-design"><span class="ic">🎨</span><div><b>Design Agent</b><small id="n-design">Waiting for copy</small></div><span class="st">idle</span></div>
+  </div>
+
+  <div class="tabs" id="tabs">
+    <button class="tab on" data-t="ads">📣 Ads Creative</button>
+    <button class="tab" data-t="proposal">📄 Proposal Creative</button>
+    <button class="tab" data-t="post">📱 Post Creative</button>
+  </div>
+  <div class="card" id="out"><p style="color:var(--mut);margin:0">Your preview dashboard will appear here. Enter an idea above and hit create.</p></div>
+</main>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let R=null,tab='ads';
+
+
+
+$('#tabs').onclick=e=>{const b=e.target.closest('.tab');if(!b)return;tab=b.dataset.t;document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x===b));render()};
+
+$('#f').onsubmit=async e=>{
+  e.preventDefault();R=null;$('#err').textContent='';$('#go').disabled=true;$('#go').textContent='Agents working…';
+  ['research','writing','design'].forEach(a=>setAgent(a,'idle','Queued'));
+  $('#out').innerHTML='<p style="color:var(--mut);margin:0">Agents are working on it…</p>';
+  try{
+    const res=await fetch('/api/generate',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({idea:$('#idea').value,brand:$('#brand').value,tone:$('#tone').value})});
+    const rd=res.body.getReader(),dec=new TextDecoder();let buf='';
+    for(;;){const {done,value}=await rd.read();if(done)break;buf+=dec.decode(value,{stream:true});
+      let i;while((i=buf.indexOf('\n\n'))>=0){const ln=buf.slice(0,i);buf=buf.slice(i+2);if(ln.startsWith('data: '))handle(JSON.parse(ln.slice(6)))}}
+  }catch(err){$('#err').textContent=err.message}
+  $('#go').disabled=false;$('#go').textContent='Create with my 3 agents';
+};
+function handle(m){
+  if(m.type==='mode')$('#mode').textContent=m.live?'Live · '+m.model:'Demo mode (no API key)';
+  else if(m.type==='agent')setAgent(m.agent,m.status,m.note);
+  else if(m.type==='result'){R=m.result;render()}
+  else if(m.type==='error'){$('#err').textContent=m.message;$('#out').innerHTML='<p style="color:var(--mut);margin:0">Something went wrong — see the message above.</p>'}
+}
+function setAgent(a,s,note){const el=$('#a-'+a);el.className='card agent '+s;el.querySelector('.st').textContent=s==='done'?'✓ done':s==='working'?'working…':'idle';$('#n-'+a).textContent=trunc(note,90)}
+const trunc=(s,n)=>(s||'').length>n?s.slice(0,n-1)+'…':s;
+
+const ff=d=>'f-'+(d.headingFont||'sans');
+function vis(d,title,sub,extra=''){
+  const p=d.palette;
+  return `<div class="vis ${ff(d)} lay-${d.layout}" style="background:${p.bg};color:${p.fg}">
+    <div class="blob" style="width:60%;aspect-ratio:1;right:-12%;top:-10%;background:${p.accent}"></div>
+    <div class="blob" style="width:34%;aspect-ratio:1;left:8%;top:30%;background:${p.accent2};opacity:.55"></div>
+    <div class="mark" style="color:${p.accent}">${esc(d.motif||'◆')}</div>
+    ${extra}<h3 style="font-size:${title.length>45?17:title.length>28?21:28}px">${esc(title)}</h3>${sub?`<p style="font-family:system-ui;font-weight:400;text-transform:none">${esc(sub)}</p>`:''}</div>`;
+}
+function render(){
+  if(!R){return}
+  const o=R.outputs[tab],c=o.copy,d=o.design,p=d.palette,B=R.brand||'Your Brand';
+  let h='';
+  if(tab==='ads'){
+    h=`<div class="grid">
+      <div class="gcard" style="background:var(--card);color:var(--ink)"><p class="lbl">Meta · Facebook / Instagram</p>
+        <div class="who"><div class="av" style="background:${p.accent};color:${p.bg}">${esc(B[0])}</div><div><b>${esc(B)}</b><br><small style="color:var(--mut)">Sponsored</small></div></div>
+        <div class="ad-top">${esc(c.meta.primary)}</div>${vis(d,c.meta.headline,'')}
+        <div class="ad-bar"><b>${esc(c.meta.headline)}</b><button class="cta" style="background:${p.accent};color:${p.bg}">${esc(c.meta.cta)}</button></div></div>
+      <div><p class="lbl">Google Search</p><div class="gcard"><div class="g-url">Ad · ${esc((R.brand||'yourbrand').toLowerCase().replace(/\W/g,''))}.co.uk</div>
+        <div class="g-h">${c.google.headlines.map(esc).join(' | ')}</div>${c.google.descriptions.map(x=>`<div class="g-d">${esc(x)}</div>`).join('')}</div></div>
+      <div class="gcard" style="background:var(--card);color:var(--ink)"><p class="lbl">LinkedIn</p>
+        <div class="who"><div class="av" style="background:${p.accent};color:${p.bg}">${esc(B[0])}</div><div><b>${esc(B)}</b><br><small style="color:var(--mut)">Promoted</small></div></div>
+        <div class="ad-top">${esc(c.linkedin.intro)}</div>${vis(d,c.linkedin.headline,'')}
+        <div class="ad-bar"><b style="font-size:13px">${esc(c.linkedin.headline)}</b><button class="cta" style="background:transparent;border:1px solid ${p.accent};color:var(--ink)">${esc(c.linkedin.cta)}</button></div></div>
+    </div><p class="lbl" style="margin-top:14px">Art direction: ${esc(d.imagery)} · ${esc(d.mood)}</p>`;
+  }else if(tab==='proposal'){
+    h=`<div class="doc"><div class="cover ${ff(d)}" style="background:${p.bg};color:${p.fg}"><div style="font-size:34px;color:${p.accent}">${esc(d.motif||'◆')}</div><h2>${esc(c.title)}</h2><div style="opacity:.8;font-family:system-ui">${esc(c.subtitle)}</div></div></div>
+    <div class="doc"><div class="pg">
+      <h4 style="color:${p.accent}">Executive summary</h4><p>${esc(c.summary)}</p>
+      <h4 style="color:${p.accent}">The challenge</h4><p>${esc(c.problem)}</p>
+      <h4 style="color:${p.accent}">Our solution</h4><p>${esc(c.solution)}</p>
+      <h4 style="color:${p.accent}">Scope of work</h4><ul>${c.scope.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div></div>
+    <div class="doc"><div class="pg">
+      <h4 style="color:${p.accent}">Timeline</h4><div class="tl">${c.timeline.map(t=>`<div style="border-color:${p.accent}"><b>${esc(t.phase)}</b> · ${esc(t.duration)}<br>${esc(t.detail)}</div>`).join('')}</div>
+      <h4 style="color:${p.accent}">Investment</h4><table>${c.investment.map(i=>`<tr><td>${esc(i.item)}</td><td>${esc(i.price)}</td></tr>`).join('')}</table>
+      <h4 style="color:${p.accent}">Next steps</h4><p>${esc(c.next_steps)}</p></div></div>`;
+  }else{
+    h=`<div class="grid"><div><p class="lbl">LinkedIn post</p><div class="post"><div class="who"><div class="av" style="background:${p.accent};color:${p.bg}">${esc(B[0])}</div><div><b>${esc(B)}</b><br><small style="color:#666">Just now</small></div></div>
+      <div class="body"><b>${esc(c.hook)}</b>\n\n${esc(c.body)}\n\n${esc(c.cta)}</div><div class="tags">${c.hashtags.map(esc).join(' ')}</div></div></div>
+      <div><p class="lbl">Carousel · ${c.carousel.length} slides</p><div class="car">${c.carousel.map((s,i)=>vis(d,s.title,s.text,`<div class="n">${i+1}/${c.carousel.length}</div>`)).join('')}</div>
+      <p class="lbl" style="margin-top:10px">Art direction: ${esc(d.imagery)}</p></div></div>`;
+  }
+  $('#out').innerHTML=`<div class="tools"><button id="copy">Copy text</button><button id="json">Download JSON</button></div>`+h;
+  $('#copy').onclick=()=>navigator.clipboard.writeText(textOf(c)).then(()=>{$('#copy').textContent='Copied ✓'});
+  $('#json').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(R.outputs[tab],null,2)],{type:'application/json'}));a.download=tab+'-creative.json';a.click()};
+}
+function textOf(c){const out=[];(function w(v){if(typeof v==='string')out.push(v);else if(Array.isArray(v))v.forEach(w);else if(v&&typeof v==='object')Object.values(v).forEach(w)})(c);return out.join('\n')}
+</script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 name: Deploy Creative Studio demo to GitHub Pages
 on:
   push:
-    paths: ['creative-studio/docs/**', '.github/workflows/pages.yml']
+    paths: ['Design creative app/docs/**', '.github/workflows/pages.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -21,6 +21,6 @@ jobs:
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: creative-studio/docs
+          path: 'Design creative app/docs'
       - id: deployment
         uses: actions/deploy-pages@v4

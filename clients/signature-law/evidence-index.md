@@ -78,3 +78,28 @@ Nothing on the site or on any listing was changed.** This round is entirely read
 
 None yet — this is round 1 and no earlier figures exist for this client. Any later round that
 contradicts the above replaces it here, visibly, per §3.
+
+## F. Proposal build record (round 1)
+
+Deliverable: `Signature-Law-Growth-Proposal-legalbuzz.pdf` — 18 A4 pages, 11 numbered sections.
+Source and build scripts: `clients/signature-law/proposal/` (`build.sh` assembles, renders, and measures page fill).
+
+Decisions taken by the user for this build:
+- Build on technical evidence only; rankings, volumes, traffic share, AI visibility and backlinks shown as *Not measured*.
+- Treat Signature Law Bowral as a single brand; Moss Vale and The HR Brief carried as open questions, with the
+  architecture recommendation (Option A) stated as conditional on Moss Vale not trading.
+
+Checks run on the PDF itself:
+- Fonts: Outfit and DM Sans embedded base64; canvas widths differ from the serif fallback (398 / 405 vs 367).
+- Contents page numbers computed from the rendered PDF and re-verified after substitution: 11 of 11 match.
+- Pagination: first draft used fixed A4 boxes and silently clipped content on 13 of 17 pages (up to 773 px on the
+  action-plan page). Rebuilt as a flowing layout; no page below 32% fill except the cover and the final page.
+- Chart palette (navy / blue / red) tested under Machado protan / deutan / tritan simulation: every pair ΔE ≥ 55.
+- Overall score: 7+5+4+4+3+2+2+2+0 = 29 of 90 = 32.2, shown as 32/100. This is a legalbuzz assessment, not an index.
+
+Drafting corrections made before delivery (no figure had been issued to the client):
+- Blog posts since 2024: draft said 2; sitemap shows **3** (two Nov 2024, one Jul 2026).
+- "Nine named practitioners with bios": only some bios were read in full; now "nine named team members".
+- Stacks Law Firm "part of a multi-office network": not verified; removed.
+- "Several competitors market by town": only KQ Lawyers and Our Lawyers were shown naming other towns; reworded to "at least two", from search results.
+- The first contents check reported "consistent" while content was being clipped; the check was meaningless until the layout was fixed.

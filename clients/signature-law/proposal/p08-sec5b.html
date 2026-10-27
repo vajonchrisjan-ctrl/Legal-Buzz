@@ -1,0 +1,34 @@
+<!-- ============ SECTION 5 (cont) ============ -->
+<div class="flow">
+ <h3 class="sub" style="margin-top:0">Rankings</h3>
+ <table>
+  <tr><th style="width:56mm">Check</th><th style="width:30mm">Status</th><th>Detail</th></tr>
+  <tr><td>Organic rank (10 phrases × location × device, depth 100), local pack, competitor ranking sets</td><td><span class="pill p-nm">Not measured</span></td><td>No rank tracker was connected for this round. Competitors were discovered by name only — see page {{P6}}</td></tr>
+ </table>
+ <div class="card dang" style="margin-top:3mm"><small style="font-size:8.1pt;color:#333">
+  <strong>There is no ranking figure anywhere in this document.</strong> Scripted Google fetches 403 after about thirty requests and are not a certified rank, so we did not attempt them. When run properly, each phrase is checked per location, on desktop and mobile separately, to depth 100 — and a phrase we cannot find is "not found at depth 100", never "rank 100".</small></div>
+
+ <h3 class="sub">Structured data and analytics — the status, verified twice</h3>
+ <div class="grid g2">
+  <div class="card"><div class="kicker dark">Structured data</div>
+   <small style="margin-top:2mm">Present on every page, identical in served HTML and after full render:
+   <strong>WebPage, WebSite, Organization, BreadcrumbList, ImageObject</strong> — the Yoast default graph.<br><br>
+   The <code>Organization</code> node carries your name, logo and three social profiles — <strong>no address, telephone, geo, hours or areaServed</strong>, and it is not typed <code>LegalService</code>. No microdata found.<br><br>
+   For a single-office practice, the highest-leverage markup gap on the site.</small></div>
+  <div class="card dang"><div class="kicker dark">Analytics</div>
+   <p style="margin-top:2mm;font-family:'Outfit';font-weight:800;font-size:12pt;color:var(--danger)">Nothing is installed.</p>
+   <small style="margin-top:2mm">We checked served HTML, then a real browser render with all sixty network requests captured. There is <strong>no GA4, no gtag, no dataLayer, no Google Tag Manager container,
+   no Meta Pixel, no LinkedIn tag, no Hotjar, no Clarity and no legacy Universal Analytics</strong>. The only beacon is Cloudflare's own Insights script, which does not report to you.<br><br><strong>Consequence:</strong> no enquiry, call or form submission is attributable today, so there is no baseline until this is fixed.</small></div>
+ </div>
+
+ <h3 class="sub">What is already working — and should not be billed for</h3>
+ <table>
+  <tr><th style="width:62mm">Check</th><th style="width:24mm">Result</th><th>Detail</th></tr>
+  <tr><td>http→https, www→non-www, trailing slash</td><td><span class="pill p-pass">Correct</span></td><td>All 301 to the single canonical URL, both schemes</td></tr>
+  <tr><td>Bogus URL, /index.html, user enumeration</td><td><span class="pill p-pass">Correct</span></td><td>Genuine 404s; <code>/wp-json/wp/v2/users</code> returns 401</td></tr>
+  <tr><td>robots.txt and XML sitemaps</td><td><span class="pill p-pass">Clean</span></td><td>Nothing blocked; sitemap declared and valid</td></tr>
+  <tr><td>Canonical, lang, viewport</td><td><span class="pill p-pass">Present</span></td><td>On all 46 URLs; <code>en-AU</code> correctly set</td></tr>
+  <tr><td>Image delivery</td><td><span class="pill p-pass">Already good</span></td><td>WebP via CDN, <code>vary: Accept</code>, two-year cache</td></tr>
+  <tr><td>Minor items</td><td><span class="pill p-med">Noted</span></td><td><code>/ABOUT-US/</code> returns 200 (canonical neutralises it); no HSTS, CSP, X-Frame-Options or Referrer-Policy — negligible SEO effect</td></tr>
+ </table>
+ </div>

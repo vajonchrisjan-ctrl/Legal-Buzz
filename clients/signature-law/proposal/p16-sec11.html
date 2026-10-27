@@ -1,0 +1,86 @@
+<!-- ============ SECTION 11 ============ -->
+<div class="flow">
+ <div class="sec"><div class="num">11</div><div class="kicker">Full audit and evidence</div>
+  <h2 id="S11">Every number above, and where it came from.</h2>
+  <p>Collected 27 October 2026 UTC — 28 October AEDT in Bowral. Read-only throughout.</p></div>
+
+ <h3 class="sub">Sources and settings</h3>
+ <table>
+  <tr><th style="width:44mm">Check</th><th style="width:44mm">Tool and exact setting</th><th style="width:24mm">Collected UTC</th><th>Status</th></tr>
+  <tr><td>Full site crawl, 46 URLs</td><td>Python + BeautifulSoup, 1 request/sec, desktop UA, served HTML</td><td>13:36–13:38</td><td><span class="pill p-pass">46 of 46 OK</span> (1 transient proxy error, retried successfully)</td></tr>
+  <tr><td>Rendered-DOM verification</td><td>Playwright / Chromium, networkidle + 3 s, 60 requests captured</td><td>13:41</td><td><span class="pill p-pass">Measured</span></td></tr>
+  <tr><td>Speed, 2 pages × 2 form factors</td><td>Lighthouse 12.2.1 local. Mobile: 412×823, simulated, 4× CPU, 150 ms RTT, 1638.4 Kbps. Desktop: 1350×940, 1× CPU, 40 ms RTT, 10240 Kbps</td><td>13:45–13:47</td><td><span class="pill p-pass">Measured</span> — lab only</td></tr>
+  <tr><td>Company register</td><td>Australian Business Register — name search, then ABN detail view</td><td>13:44</td><td><span class="pill p-pass">13 rows</span></td></tr>
+  <tr><td>Host canonicalisation</td><td>curl, 8 variants, redirect chains recorded</td><td>13:43</td><td><span class="pill p-pass">8 of 8</span></td></tr>
+  <tr><td>Headers, image negotiation</td><td>curl with <code>Accept: image/webp</code></td><td>13:52</td><td><span class="pill p-pass">Measured</span></td></tr>
+  <tr><td>Listings read in full</td><td>Localsearch, LawTap (firm + principal), LinkedIn</td><td>13:49–13:51</td><td><span class="pill p-pass">4 pages</span></td></tr>
+  <tr><td>PageSpeed Insights</td><td>PSI API v5, then the PSI web interface</td><td>13:45</td><td><span class="pill p-crit">Failed</span> — HTTP 429 daily quota on all 4 runs; UI hung on the same backend</td></tr>
+  <tr><td>The Fold listing</td><td>Direct page read</td><td>13:50</td><td><span class="pill p-crit">Failed</span> — bot-verification screen. Not verified; no mismatch asserted</td></tr>
+  <tr><td>Google Business Profile</td><td>Searched by brand, principal, address, both registered names</td><td>13:49–13:51</td><td><span class="pill p-med">Unfinished</span> — not surfaced. <strong>Not evidence of absence</strong></td></tr>
+  <tr><td>Rankings · volumes · traffic share · AI visibility · backlinks</td><td>—</td><td>—</td><td><span class="pill p-nm">Not supported</span> — no rank tracker, keyword tool or link index was connected</td></tr>
+ </table>
+
+ <h3 class="sub">How the traffic metric was handled</h3>
+ <div class="card s"><small style="font-size:8.1pt;color:#333">
+  The required metric is estimated organic traffic for <strong>one keyword at one domain</strong>. Before using any such
+  figure we apply an arithmetic acceptance test: sum the traffic column across every returned row and compare it to
+  the domain's reported organic traffic. If the rows sum to approximately the total and no single row equals or
+  exceeds it, the metric is row-level and we accept it. Otherwise we reject it.<br><br>
+  <strong>Metrics we reject on sight</strong>, because each answers a different question: per-URL "total traffic" in a SERP
+  overview (it counts every keyword that URL ranks for); domain-level traffic in a competitive-research overview;
+  and any vendor's domain-level traffic estimate.<br><br>
+  <strong>For this round the test was never reached</strong>, because no tool offering the metric was connected.
+  The finding stands as printed on page {{P6}}: <em>Compatible keyword-level cross-domain traffic data unavailable.</em>
+  No domain-level figure has been substituted anywhere in this document.</small></div>
+
+ <h3 class="sub">Namesakes excluded from every count</h3>
+ <table>
+  <tr><th style="width:52mm">Name</th><th>Why it is excluded</th></tr>
+  <tr><td><strong>signaturelaw.co.uk</strong></td><td>A United Kingdom firm. Its public review profile carries strongly negative reviews that are <strong>not yours</strong> and must never be attributed to you. The highest-risk namesake on this list</td></tr>
+  <tr><td>Eleven other "Signature"-style ABNs</td><td>Separate entities returned by the same register search — in QLD 4352, NSW 2044, 2174, 2195, 2026, 2767, 2145, VIC 3170 and elsewhere. None is you</td></tr>
+  <tr><td>hrbrief.com.au</td><td>Read in full: a weekly HR newsletter on Ghost, with no lawyer, no ABN and no connection to Bowral. <strong>Not</strong> your "The HR Brief" business name</td></tr>
+  <tr><td>Elizabeth Kenny (Wikipedia)</td><td>A historical Australian bush nurse. Unrelated to your principal of the same name</td></tr>
+ </table>
+ </div>
+
+<div class="flow">
+ <h3 class="sub" style="margin-top:0">Limitations that bound every conclusion in this document</h3>
+ <table>
+  <tr><th style="width:52mm">Limitation</th><th>What it means for the conclusions above</th></tr>
+  <tr><td><strong>No ranking data</strong></td><td>Nothing here describes where you appear in a search result for any phrase, at any location, on any device. No statement in this document should be read as one</td></tr>
+  <tr><td><strong>No search volume data</strong></td><td>Nothing here describes how many people search for your services or your town. We have not sized your market, and a missing volume would mean unknown, never zero</td></tr>
+  <tr><td><strong>No cross-domain traffic data</strong></td><td>Nothing here describes your share of anything. The category and percentage analysis a proposal normally carries is absent, not estimated</td></tr>
+  <tr><td><strong>No AI-platform testing</strong></td><td>We have not tested what any assistant says about you. Section 4 describes only what is machine-readable on your own site. If we later report a mention rate it will be scoped to the platforms tested and labelled a sample rate, never share of voice</td></tr>
+  <tr><td><strong>No backlink data</strong></td><td>No link count, no referring domains, no anchor text, no authority score. No risk claim of any kind is made about your link profile</td></tr>
+  <tr><td><strong>Speed is lab, not field</strong></td><td>Lighthouse under simulated throttling. CrUX field data was not collected, so your real visitors' experience is unknown rather than confirmed, and the 4.2 s and 6.1 s figures are lab measurements</td></tr>
+  <tr><td><strong>Google profile unverified</strong></td><td>Every statement about reviews is scoped to the three listings we read in full. We do not claim you have no reviews, and we do not claim you have no profile</td></tr>
+  <tr><td><strong>Competitors unmeasured</strong></td><td>The firms on page {{P6}} were discovered, not analysed. No claim about any of their sites, speeds, rankings or weaknesses appears in this document</td></tr>
+  <tr><td><strong>Citations partially checked</strong></td><td>Three listings of a 15–20 target were read. The rest is outstanding, and The Fold specifically is unverified</td></tr>
+  <tr><td><strong>One crawl, one day</strong></td><td>Everything describes 27 October 2026. A site that changes weekly would need re-checking before any of it is acted on</td></tr>
+ </table>
+
+ <h3 class="sub">Corrections to our own work</h3>
+ <div class="card s"><small style="font-size:8.1pt;color:#333">
+  <strong>This is round one, so there is nothing yet to correct.</strong> We print this section empty rather than omit it,
+  because it will not stay empty. Audits of this kind routinely revise their own first draft: a listing wrongly
+  called a duplicate, a "no listing found" that a fourth search disproves, a stale-address claim the live page does
+  not support, a links-versus-domains count stated in the wrong unit.<br><br>
+  When that happens the corrected finding <strong>replaces</strong> the original here, visibly, with both versions shown and
+  dated. We do not quietly edit a number and reprint the document. Two items on this round are already the most
+  likely candidates: the Google Business Profile we could not verify, and the Moss Vale office we found on LinkedIn
+  and nowhere else.</small></div>
+
+ <div class="card dark" style="margin-top:6mm">
+  <div class="kicker">What we did not do, restated plainly</div>
+  <small style="margin-top:2.5mm;font-size:8.4pt">We changed nothing on your website. We claimed no listing, submitted
+  no form, created no account, bought nothing, and set up no tracking project. We spent no money on your behalf and
+  incurred no chargeable action. Everything in this document was obtained by reading what is already public.</small>
+ </div>
+
+ <div class="endmark">
+  <div style="font-family:'Outfit';font-weight:900;font-size:20pt;letter-spacing:-.03em">
+   <span style="color:var(--ink)">legal</span><span style="background:var(--yellow);color:var(--ink);padding:0 .22em;border-radius:4px">buzz</span></div>
+  <small style="margin-top:2.5mm">Signature Law — Growth Proposal · October 2026</small>
+ </div>
+ </div>
+</body></html>

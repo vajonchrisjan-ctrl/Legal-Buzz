@@ -16,5 +16,14 @@ import json
 pg=json.load(open(f'{B}/proposal/pagemap.json')) if os.path.exists(f'{B}/proposal/pagemap.json') else {}
 for k,v in pg.items():
     html=html.replace('{{%s}}'%k,str(v))
+
+# section opener: navy block -> live-page style (badge + label, headline, intro)
+def _sec(m):
+    num=int(m.group(1)); label=m.group(2); hid=m.group(3); head=m.group(4); intro=m.group(5)
+    return (f'<div class="sectop"><div class="sechead"><span class="badge">{num}</span><span>{label}</span></div>'
+            f'<h2 class="headline" id="{hid}">{head}</h2><p class="secintro">{intro}</p></div>')
+html=_re.sub(r'<div class="sec"><div class="num">(\d+)</div><div class="kicker">(.*?)</div>\s*<h2 id="(S\d+)">(.*?)</h2>\s*<p>(.*?)</p></div>',_sec,html,flags=_re.S)
+# bordered 4px wrapper around every table
+html=html.replace('<table>','<div class="tw"><table>').replace('</table>','</table></div>')
 open(f'{B}/proposal/proposal.html','w').write(html)
 print('pages declared:',total,'| html bytes:',len(html),'| tokens left:',html.count('{{P'))

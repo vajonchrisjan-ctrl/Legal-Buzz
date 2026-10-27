@@ -103,3 +103,28 @@ Drafting corrections made before delivery (no figure had been issued to the clie
 - Stacks Law Firm "part of a multi-office network": not verified; removed.
 - "Several competitors market by town": only KQ Lawyers and Our Lawyers were shown naming other towns; reworded to "at least two", from search results.
 - The first contents check reported "consistent" while content was being clipped; the check was meaningless until the layout was fixed.
+
+## G. Design alignment to the live legalbuzz proposal (round 1, second pass)
+
+The proposal was restyled to match https://legalbuzz.co/proposal/thynne-macartney. That page sits behind a
+"Confirm who's reading" name/email gate; **the gate was not submitted**. Design tokens and component styles were
+read from the page's published stylesheet and computed DOM styles only.
+
+Where the live page differs from the design spec in the master prompt, the live page was followed:
+
+| Element | Master-prompt spec | Live page (followed) |
+|---|---|---|
+| Section opener | Dark navy block, faded numeral, yellow kicker | White page; navy badge with yellow number + caps label; very large black Outfit headline |
+| Key takeaway | Dark navy card | Yellow (#f5d400) rounded callout |
+| Radii | 12px cards | 4px tables, 8px cards, 12px callouts/figures, 16px feature cards, full pills |
+| Table header | Outfit caps, 0.11em tracking | DM Sans bold caps, tight tracking; bordered 4px wrapper; even rows surface/60 |
+| Sub-headings | Yellow left rule | Plain Outfit bold |
+| Cover | Score card with large red /100 | Firm name + yellow kicker, tagline, three cards, evidence-source pills, numbered contents pills |
+| Contents | Table | Numbered cards |
+| Six-month plan | Pills in a table | Yellow cell grid (solid = focus, 45% = active, light = maintain) |
+
+The overall 32/100 score moved from the cover into Section 5, where the live page keeps its scores.
+Cover tagline "Be seen. Be trusted. Be chosen." is taken from the live page's cover.
+
+Re-verified after the restyle: 18 pages; contents page numbers 11 of 11 match the rendered PDF; no page below
+32% fill except one coherent section-ending table (28%) and the last page; 33 content checks all present.

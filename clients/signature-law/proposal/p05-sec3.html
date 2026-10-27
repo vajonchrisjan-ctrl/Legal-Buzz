@@ -21,12 +21,7 @@
  <div class="card dang">
   <div class="kicker dark">Not measured — and we will not guess</div>
   <p style="margin-top:2mm"><strong>We have no search volume data for your services or your towns, and no ranking data for any phrase.</strong></p>
-  <small>Both require a keyword tool and a rank tracker, and neither was connected for this round. We are deliberately
-  not telling you that "conveyancing Bowral gets N searches a month", because we did not measure it and a guess
-  would be indistinguishable from a measurement once it is printed. Establishing this is the first line item in
-  Phase 1 — see page {{P7}}. Two rules we will hold to when we do measure it: a missing volume means
-  <em>unknown</em>, never zero (small towns are routinely suppressed), and the volumes of overlapping phrases are
-  never added together.</small>
+  <small>Both require a keyword tool and a rank tracker, and neither was connected for this round. We will not tell you that "conveyancing Bowral gets N searches a month" — we did not measure it, and a guess is indistinguishable from a measurement once printed. Establishing this is the first line item in Phase 1 (page {{P7}}). A missing volume means <em>unknown</em>, never zero, and overlapping phrase volumes are never added together.</small>
  </div>
 
  <h3 class="sub">What we can say about your content, because we counted it</h3>
@@ -38,8 +33,7 @@
   <div class="card"><div style="font-family:'Outfit';font-weight:900;font-size:26pt;color:var(--navy);line-height:1">0</div>
    <small style="margin-top:1mm">pages targeting a town other than Bowral — including Moss Vale, where your LinkedIn says you have an office</small></div>
  </div>
- <small style="margin-top:3mm">Reading of the post titles, not a measurement of demand: your published work is dominated by employment, industrial
- relations and workplace safety. That is where your depth is, and it is the area a referrer is most likely to be able to describe you by.</small>
+ <small style="margin-top:3mm">Reading of the post titles, not a measurement of demand: your published work is dominated by employment, industrial relations and workplace safety.</small>
  </div>
 
 <!-- ============ SECTION 4 ============ -->
@@ -51,12 +45,7 @@
  <div class="card dang">
   <div class="kicker dark">What we did not test, and why</div>
   <p style="margin-top:2mm"><strong>We did not run discovery or branded questions on ChatGPT, Claude, Gemini, Perplexity, Google AI Overview or AI Mode.</strong></p>
-  <small>Doing it properly requires a neutral research account on each platform, run in a fresh session, with the
-  question set held identical across platforms. Running them from a personal signed-in account returns a
-  personalised answer, which is not a measurement of anything. No account of that kind was available for this round,
-  so <strong>no mention rate, no citation share and no "AI visibility score" appears anywhere in this document</strong> —
-  not even a rough one. When we do run it, the result will be reported as a sample mention rate per platform,
-  never as market share, and scoped to the platforms we actually tested.</small>
+  <small>Doing it properly needs a neutral research account per platform, a fresh session each, and an identical question set. A personal signed-in account returns a personalised answer, which measures nothing. None was available, so <strong>no mention rate, citation share or "AI visibility score" appears in this document</strong>. When we run it, the result is a sample mention rate per platform — never market share.</small>
  </div>
 
  <h3 class="sub">What is measurable today: what an assistant finds when it reads your site</h3>
@@ -64,9 +53,7 @@
   <tr><th style="width:52mm">Signal</th><th style="width:26mm">Your site</th><th>Why it decides whether you get named</th></tr>
   <tr><td><strong>/llms.txt</strong></td><td><span class="pill p-crit">404 — absent</span></td><td>The emerging convention for telling an assistant what a site is and which pages matter</td></tr>
   <tr><td><strong>LegalService / Attorney schema</strong></td><td><span class="pill p-crit">Absent</span></td><td>You publish a generic <code>Organization</code>. Nothing machine-readable says you are a law firm</td></tr>
-  <tr><td><strong>Address in structured data</strong></td><td><span class="pill p-crit">Absent</span></td><td>An assistant asked for a lawyer <em>in Bowral</em> cannot confirm from your markup that you are in Bowral</td></tr>
-  <tr><td><strong>Telephone in structured data</strong></td><td><span class="pill p-crit">Absent</span></td><td>Your phone number exists only as plain text a model has to infer from</td></tr>
-  <tr><td><strong>Opening hours / areaServed</strong></td><td><span class="pill p-crit">Absent</span></td><td>Nothing states which towns you serve — so nothing can be matched to a town</td></tr>
+  <tr><td><strong>Address, telephone, hours, areaServed in markup</strong></td><td><span class="pill p-crit">All absent</span></td><td>An assistant asked for a lawyer <em>in Bowral</em> cannot confirm it from your markup; your phone number is plain text it must infer</td></tr>
   <tr><td><strong>Named practitioners</strong></td><td><span class="pill p-pass">Nine named</span></td><td><strong>Your strongest AI-readable asset.</strong> Named people with stated roles and specialisms on the About page</td></tr>
   <tr><td><strong>Practice-area prose</strong></td><td><span class="pill p-med">Thin: 266–758 words</span></td><td>Enough to classify you, rarely enough to prefer you over a firm that explains the process</td></tr>
   <tr><td><strong>FAQ / question-shaped content</strong></td><td><span class="pill p-crit">None</span></td><td>Assistants answer questions; pages that answer questions are what they quote</td></tr>
@@ -74,7 +61,7 @@
   <tr><td><strong>robots.txt</strong></td><td><span class="pill p-pass">Open, clean</span></td><td>Nothing is blocking an assistant from reading you. The gap is what there is to read</td></tr>
  </table>
 
- <div class="card dark" style="margin-top:6mm"><div class="kicker">The pattern this produces</div>
+ <div class="callout" style="margin-top:6mm"><div class="kicker">The pattern this produces</div>
   <p style="margin-top:2.5mm;font-family:'Outfit';font-weight:700;font-size:13pt;line-height:1.32;max-width:162mm">
    A model asked "who is Signature Law?" has enough to answer. A model asked "who should I use for conveyancing in
    Bowral?" has almost nothing to match you on.</p>

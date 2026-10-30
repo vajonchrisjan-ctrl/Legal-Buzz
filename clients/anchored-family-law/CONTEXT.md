@@ -89,3 +89,19 @@ Same technical scope as the JP Goldman work. Counts are from the live site, not 
 - Where the pre-migration ranking baseline is kept.
 - Whether Anchored is a tracked Legalbuzz client with a dashboard task board (JP Goldman has one;
   no Anchored tracker link has been provided).
+
+## Staging QA — run 30 Oct 2026
+Full report: `staging-qa-report-2026-10-30.html` (published as a private artifact:
+https://claude.ai/artifact/DtsQ1kxxBVs8NtHzsrzB51). Read-only run; no site changes made.
+
+- Staging is an **unmodified clone of live** (99.6% identical homepage HTML, same themes
+  `hello-elementor` + `stoke`, 44/44 URLs identical on title/description/H1/robots/OG/word count).
+  The redesign is NOT on staging yet — repeat QA once it is.
+- Before go-live: staging host baked into canonicals/sitemap/Rank Math redirects; reCAPTCHA
+  rejects the staging domain (forms untested); Stripe off + Cart/Checkout are drafts (404 on live
+  too) while product pages show Add to cart; Calendly `still-not-sure-…` links 404 on 6 pages.
+- Inherited from live: 17 indexable pages with no H1, Rank Math Schema module off (0 JSON-LD),
+  Poppins font blocked by `http://` URLs in `poppins.css`, Redirections module off with a
+  /blog <-> /knowledgebase loop stored, Reddit pixel `a2_imh06ff977eq`, 5 administrator accounts.
+- Not tested: form submissions/email, payments, Calendly booking, logins, backup/restore, DNS/SSL
+  cutover, Lighthouse/WCAG/cross-browser, content proofreading.

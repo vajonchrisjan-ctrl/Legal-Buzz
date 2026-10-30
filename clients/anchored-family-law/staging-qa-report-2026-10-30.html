@@ -1,0 +1,416 @@
+<title>Anchored Staging QA</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: one reading column. Verdict first, then what blocks launch, what is inherited from live, what passed, what was not tested. */
+:root {
+  --bg: #f5f7fa;
+  --surface: #ffffff;
+  --fg: #151c26;
+  --muted: #5a6676;
+  --line: #d8dee6;
+  --accent: #0b5ea8;
+  --fail: #b42318;
+  --fail-bg: #fdeceb;
+  --warn: #8a4b08;
+  --warn-bg: #fdf1dc;
+  --pass: #17653f;
+  --pass-bg: #e3f4ea;
+  --info: #3a4a60;
+  --info-bg: #e7ecf3;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e141b;
+    --surface: #151d27;
+    --fg: #e7ecf2;
+    --muted: #9aa7b8;
+    --line: #28323f;
+    --accent: #6cb4f2;
+    --fail: #ff9b92;
+    --fail-bg: #3a1b1a;
+    --warn: #f3bd78;
+    --warn-bg: #36270f;
+    --pass: #7fd6a6;
+    --pass-bg: #12301f;
+    --info: #b5c3d6;
+    --info-bg: #212c3a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e141b;
+  --surface: #151d27;
+  --fg: #e7ecf2;
+  --muted: #9aa7b8;
+  --line: #28323f;
+  --accent: #6cb4f2;
+  --fail: #ff9b92;
+  --fail-bg: #3a1b1a;
+  --warn: #f3bd78;
+  --warn-bg: #36270f;
+  --pass: #7fd6a6;
+  --pass-bg: #12301f;
+  --info: #b5c3d6;
+  --info-bg: #212c3a;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.55;
+  padding-block: 40px 72px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 880px; margin: 0 auto; display: flex; flex-direction: column; gap: 44px; }
+h1, h2, h3 { text-wrap: balance; margin: 0; line-height: 1.2; }
+h1 { font-size: clamp(26px, 5vw, 36px); font-weight: 600; letter-spacing: -0.02em; }
+h2 { font-size: 20px; font-weight: 600; letter-spacing: -0.01em; }
+h3 { font-size: 15.5px; font-weight: 600; }
+p { margin: 0; }
+a { color: var(--accent); }
+code, .mono { font-family: var(--font-mono); font-size: 12.5px; }
+.eyebrow { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+.meta { color: var(--muted); font-size: 13.5px; }
+
+header { display: flex; flex-direction: column; gap: 14px; padding-bottom: 28px; border-bottom: 1px solid var(--line); }
+.verdict { background: var(--surface); border: 1px solid var(--line); padding: 22px 24px; display: flex; flex-direction: column; gap: 10px; }
+.verdict h2 { font-size: 19px; }
+.verdict p { max-width: 68ch; }
+
+.strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.strip > div { background: var(--surface); padding: 14px 16px; display: flex; flex-direction: column; gap: 2px; }
+.strip b { font-size: 26px; font-weight: 600; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+.strip span { font-size: 12.5px; color: var(--muted); }
+
+section { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+section > .lede { color: var(--muted); max-width: 68ch; }
+
+.items { display: flex; flex-direction: column; border-top: 1px solid var(--line); }
+.item { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 4px 18px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+.item .body { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.item .body p { max-width: 70ch; }
+.pill { align-self: start; justify-self: start; font-size: 11.5px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; padding: 3px 8px; border-radius: 3px; white-space: nowrap; }
+.pill.fail { background: var(--fail-bg); color: var(--fail); }
+.pill.warn { background: var(--warn-bg); color: var(--warn); }
+.pill.pass { background: var(--pass-bg); color: var(--pass); }
+.pill.info { background: var(--info-bg); color: var(--info); }
+.evidence { font-family: var(--font-mono); font-size: 12px; color: var(--muted); background: var(--surface); border: 1px solid var(--line); padding: 8px 10px; overflow-x: auto; white-space: pre-wrap; overflow-wrap: anywhere; }
+.action { font-size: 14px; }
+.action b { font-weight: 600; }
+.live { font-size: 12.5px; color: var(--muted); }
+
+.pairs { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); border-top: 1px solid var(--line); }
+.pairs > div { padding: 10px 0; border-bottom: 1px solid var(--line); min-width: 0; }
+.pairs > div:nth-child(odd) { padding-right: 16px; font-weight: 500; }
+.pairs > div:nth-child(even) { color: var(--muted); }
+.pairs .ok { color: var(--pass); font-weight: 500; }
+
+ul.plain { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; }
+ul.plain li { max-width: 72ch; }
+
+footer { color: var(--muted); font-size: 13px; display: flex; flex-direction: column; gap: 6px; border-top: 1px solid var(--line); padding-top: 20px; }
+
+@media (max-width: 620px) {
+  .item { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .pairs { grid-template-columns: minmax(0, 1fr); }
+  .pairs > div:nth-child(odd) { padding-bottom: 0; border-bottom: 0; }
+  .pairs > div:nth-child(even) { padding-top: 2px; }
+  .verdict { padding: 18px; }
+}
+</style>
+
+<div class="wrap">
+
+<header>
+  <span class="eyebrow">Anchored Family Law · Pre-launch check</span>
+  <h1>Staging site QA report</h1>
+  <p class="meta">Site tested: <code>stg-reviewitco-staging.kinsta.cloud</code> · Run on 30 October 2026 · Read-only: nothing on the staging or live site was changed.</p>
+</header>
+
+<div class="verdict">
+  <span class="pill warn">Not ready to point the domain</span>
+  <h2>Staging works and matches the live site exactly. Five things need fixing or deciding first.</h2>
+  <p>Every page, link, image and sitemap entry on staging checks out, and all 44 URLs match live on title, description, H1, robots tags, social tags and content length. That also means staging is currently an unchanged copy of the live site, so the new design is not on it yet. Forms, payments, booking links and the address baked into the SEO settings still need attention before the real domain goes across.</p>
+</div>
+
+<div class="strip" aria-label="Summary counts">
+  <div><b>44</b><span>URLs crawled, all return 200</span></div>
+  <div><b>44/44</b><span>match live on SEO tags</span></div>
+  <div><b>5</b><span>to fix or decide before go-live</span></div>
+  <div><b>11</b><span>issues inherited from live</span></div>
+  <div><b>9</b><span>areas not tested</span></div>
+</div>
+
+<section>
+  <h2>Fix or decide before go-live</h2>
+  <p class="lede">These would cause a visible problem for visitors or the firm on launch day, or they change what this report can claim.</p>
+  <div class="items">
+
+    <div class="item">
+      <span class="pill fail">Decide</span>
+      <div class="body">
+        <h3>The new design is not on staging</h3>
+        <p>Staging is an unmodified clone of the live site. It runs the same two themes (<code>hello-elementor</code> and <code>stoke</code>) and the same Elementor page styles as live, and desktop screenshots of the homepage look identical. If the plan is to re-skin this site, that work has not been applied, and this QA covers the clone only.</p>
+        <div class="evidence">Homepage HTML, normalised for domain: 99.6% similar to live. 16 differing lines of 1,684, all tracking or font-URL related.</div>
+        <p class="action"><b>Next:</b> confirm whether the design is meant to be on staging already. If it is not, repeat this check after it is built.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <span class="pill fail">Fix</span>
+      <div class="body">
+        <h3>The staging address is saved inside the SEO settings</h3>
+        <p>Canonical tags and social URLs on all 38 indexable pages point at the staging host. The sitemap lists 69 staging URLs, four Rank Math redirect rules send visitors to staging addresses, and the attachment redirect default points there too. If any of this carries over unchanged, Google is told that the staging address is the real site.</p>
+        <div class="evidence">canonical host: stg-reviewitco-staging.kinsta.cloud × 38
+sitemap_index.xml → 69 URLs, all on the staging host
+attachment_redirect_default = https://stg-reviewitco-staging.kinsta.cloud</div>
+        <p class="action"><b>Next:</b> run a domain search-and-replace at go-live (or confirm Kinsta's push-to-live does it), then re-check canonicals and the sitemap on the real domain.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <span class="pill fail">Fix</span>
+      <div class="body">
+        <h3>Forms could not be checked: reCAPTCHA rejects the staging domain</h3>
+        <p>The reCAPTCHA badge on staging reads "ERROR for site owner: Invalid domain for site key", while live shows the normal badge. The contact form (Gravity Forms) is present, as is an Elementor form on each service page and on Pricing (confirmed by name as "Price List Download" on the Divorce page), but no form was submitted. A submission would email the firm and create real entries.</p>
+        <p class="action"><b>Next:</b> either add the staging domain to the reCAPTCHA key, or submit one test enquiry on the real domain straight after launch and confirm it arrives.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <span class="pill fail">Decide</span>
+      <div class="body">
+        <h3>The shop shows "Add to cart" but cannot take an order</h3>
+        <p>Stripe is switched off on staging with no keys saved. The Cart and Checkout pages are drafts, and <code>/cart/</code> and <code>/checkout/</code> return 404. Live behaves the same, yet product pages show an Add to cart button and 14 products are in the sitemap.</p>
+        <div class="evidence">woocommerce_stripe_settings: enabled = no, no live or test keys set
+Pages 411 Shop, 412 Cart, 413 Checkout: draft
+/cart/ → 404   /checkout/ → 404   /product/divorce/ → add-to-cart button present</div>
+        <p class="action"><b>Next:</b> ask Emma whether the firm sells online. If yes, publish Cart and Checkout and connect Stripe. If no, remove the buttons and take the products out of the sitemap.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <span class="pill fail">Fix</span>
+      <div class="body">
+        <h3>The "Still not sure? Book a free 15 minute consult" link is dead</h3>
+        <p>Calendly returns 404 for this event under both account names. It sits on <code>/services/</code>, all four service pages and one blog post. Live has the same links, so this was inherited. The other two Calendly links work.</p>
+        <div class="evidence">calendly.com/anchored-family-law/still-not-sure-book-a-free-15-minute-consult → 404
+calendly.com/emma-anchored-family-law/still-not-sure-book-a-free-15-minute-consult → 404
+Pages: /services/, /child-support/, /divorce/, /property-and-financial/, /parenting-child-custody/, /what-are-fixed-fees/</div>
+        <p class="action"><b>Next:</b> get the current event URL from Emma's Calendly and replace it on those six pages.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <h2>Inherited from live</h2>
+  <p class="lede">Each of these is identical on the live site, so they are not new faults. They are the on-page fixes already planned for the rebuild.</p>
+  <div class="items">
+
+    <div class="item">
+      <span class="pill warn">SEO</span>
+      <div class="body">
+        <h3>17 of 38 indexable pages have no H1</h3>
+        <p>That includes every service page, About, FAQ, Pricing, Contact and Bookings. One blog post has two H1s.</p>
+        <div class="evidence">No H1: /services/ /divorce/ /parenting-child-custody/ /property-and-financial/ /child-support/ /pricing/ /about/ /faq/ /contact-us/ /bookings/ /new-client-pathway/ /anchoredblog/ /join-the-team/ /resources-hub/ /media/ /links/ /price-list/
+Two H1s: /how-to-write-a-good-affidavit-for-family-court/</div>
+      </div>
+    </div>
+
+    <div class="item">
+      <span class="pill warn">SEO</span>
+      <div class="body">
+        <h3>No structured data anywhere</h3>
+        <p>Rank Math's Schema module is switched off, so none of the 44 pages outputs JSON-LD. The organisation and article markup Rank Math is set up for is never produced.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <span class="pill warn">Design</span>
+      <div class="body">
+        <h3>The Poppins heading font never loads</h3>
+        <p>Elementor's saved font stylesheet has 54 font addresses written as <code>http://anchoredfamilylaw.com.au/…</code>. Browsers block them as insecure content, so headings fall back to a system sans-serif. Live is affected in the same way.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <span class="pill warn">SEO</span>
+      <div class="body">
+        <h3>Stored redirects are switched off, and two are wrong</h3>
+        <p>The Redirections module and the 404 monitor are both off. Four old rules from February 2026 are stored anyway. <code>/blog</code> points to <code>/knowledgebase</code> and <code>/knowledgebase</code> points back to <code>/blog</code>, which would loop if anyone turned the module on. Another maps <code>services/charter-boat</code>, which belongs to a different site.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <span class="pill warn">SEO</span>
+      <div class="body">
+        <h3>Titles, descriptions and social tags</h3>
+        <p>14 of 38 indexable pages have a meta description outside 70–160 characters (8 too short, 6 too long). 16 titles run over 60 characters, up to 237. 13 pages carry 7 social tags where others carry 13, most likely missing the share image.</p>
+        <div class="evidence">Short: /media/ 20, /pricing/ 31, /map-session-terms/ 37, /resources-hub/ 49, /parenting-child-custody/ 61, /price-list/ 63, /bookings/ 60, /how-to-write-a-good-affidavit… 30
+Long: / 311, /faq/ 232, /about/ 202, /anchoredblog/ 177, /whats-love-got-to-do-with-it/ 281</div>
+      </div>
+    </div>
+
+    <div class="item">
+      <span class="pill warn">SEO</span>
+      <div class="body">
+        <h3>Thin pages</h3>
+        <p>Seven indexable pages carry little text of their own: Resources Hub (18 words), Price List (20), Contact us (70), Links (84), Media (85), Bookings (187) and Services (289).</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <span class="pill warn">Access</span>
+      <div class="body">
+        <h3>Images without alt text</h3>
+        <p>145 of 167 images have a missing or empty alt attribute. Some of those will be decorative, which is fine, but the count is high for pages that carry content images such as the homepage (19 of 20) and About (13 of 13).</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <span class="pill warn">Tracking</span>
+      <div class="body">
+        <h3>A Reddit ad pixel is hard-coded, and it fires from staging</h3>
+        <p>Pixel <code>a2_imh06ff977eq</code> is in the page source on live and staging, so visits to staging are sent to the same Reddit ad account. Google Analytics (<code>G-TH2HQSHWKE</code>) loads on live only, so staging does not pollute it. Check the firm knows about the Reddit pixel and that the privacy policy covers it.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <span class="pill warn">Rank Math</span>
+      <div class="body">
+        <h3>Setup gaps flagged by Rank Math's own audit (56 / 100, "average")</h3>
+        <p>20 pages, 14 products and 12 posts have no focus keyword. The site tagline is empty. Google Search Console is not linked. Automatic plugin updates are off.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <span class="pill warn">Security</span>
+      <div class="body">
+        <h3>Five administrator accounts and a few exposed basics</h3>
+        <p>Administrators: <code>AnchoredFamilyLaw_Client</code>, <code>legalbuzz593DQQ</code>, <code>MelTelecican</code>, <code>SiteSupport</code> and <code>Team</code>. <code>readme.html</code> and <code>license.txt</code> are publicly readable, and the site sends no HSTS, X-Frame-Options, Content-Security-Policy or Referrer-Policy headers. The WordPress admin email is <code>sitesupport@lawue.com</code>.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <span class="pill info">Minor</span>
+      <div class="body">
+        <h3>Smaller items</h3>
+        <ul class="plain">
+          <li>Three internal links use <code>/?page_id=</code> addresses and redirect once to the real page.</li>
+          <li>The Terms and Privacy pages link to <code>http://www.anchoredfamilylaw.com.au</code> instead of https.</li>
+          <li>Wordfence, Sucuri and Limit Login Attempts overlap, and LiteSpeed Cache is installed on Kinsta hosting.</li>
+          <li>Comments are open by default on posts.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <h2>What passed</h2>
+  <p class="lede">Checked directly against the staging site, with live used as the comparison where noted.</p>
+  <div class="pairs">
+    <div>Page availability</div><div class="ok">44 of 44 URLs return 200 (26 pages, 18 posts). Slowest HTML response 1.9 s; staging bypasses the page cache, so expect faster on live.</div>
+    <div>URL structure</div><div class="ok">All 44 paths match live, so no redirects are needed for slug changes.</div>
+    <div>SEO parity with live</div><div class="ok">Title, description, H1, robots, social tag set and word count identical on 44 of 44 URLs.</div>
+    <div>Internal links</div><div class="ok">60 of 60 unique internal links resolve.</div>
+    <div>Images</div><div class="ok">40 of 40 load. Largest is 155 KB.</div>
+    <div>XML sitemap</div><div class="ok">69 URLs, all return 200, none are noindex pages. Thank-you, terms, privacy, sitemap and account pages are correctly noindex.</div>
+    <div>Layout</div><div class="ok">No sideways scrolling at 1440 px or 390 px on 17 pages. Unknown addresses return a real 404.</div>
+    <div>HTTPS</div><div class="ok">http:// redirects to https:// with a 301. No insecure requests other than the font issue above.</div>
+    <div>Search visibility</div><div class="ok">Staging sends a noindex header, and WordPress's "discourage search engines" setting is off, so it will not block the live site.</div>
+    <div>Blocked files</div><div class="ok">wp-config, .env, .git, debug.log, XML-RPC and the uploads folder listing all return 403. User listing and author lookups are blocked.</div>
+    <div>Errors and logs</div><div class="ok">No WPCode snippet has an error flag. WP Mail SMTP shows no failed events. The Rank Math 404 log is empty.</div>
+    <div>Calendly</div><div class="ok">2 of 4 booking links work (the free consult and the MAP session).</div>
+    <div>External links</div><div>36 checked: 24 fine, 2 dead (the Calendly links above), 7 blocked by the other site's bot protection, 3 could not be reached from the test environment (<code>familyproperty.com.au</code>, <code>thelaunchcollective.com.au</code>, <code>fcfcoa.gov.au</code>) and need a manual click.</div>
+    <div>Platform</div><div class="ok">WordPress 7.1.4, PHP 8.2.35, MariaDB 11.4. 24 plugins active, including Rank Math Pro, Gravity Forms, WooCommerce and Elementor Pro.</div>
+  </div>
+</section>
+
+<section>
+  <h2>Not tested</h2>
+  <p class="lede">These cannot be called tested. Each needs a decision, a login or a live domain.</p>
+  <div class="items">
+    <div class="item">
+      <span class="pill info">Needs OK</span>
+      <div class="body">
+        <h3>Form submissions and email delivery</h3>
+        <p>Submitting would send real email to the firm. No test email was sent, so the mail setup (WP Mail SMTP, SendGrid, <code>noreply@anchoredfamilylaw.com.au</code>) is untested.</p>
+      </div>
+    </div>
+    <div class="item">
+      <span class="pill info">Blocked</span>
+      <div class="body">
+        <h3>Payments and checkout</h3>
+        <p>Stripe is off and checkout pages do not exist. See the shop item above.</p>
+      </div>
+    </div>
+    <div class="item">
+      <span class="pill info">Not run</span>
+      <div class="body">
+        <h3>Booking flow, logins and the editor</h3>
+        <p>The Calendly embeds load, but no booking was made. My Account login, registration and the Elementor editor were not exercised.</p>
+      </div>
+    </div>
+    <div class="item">
+      <span class="pill info">Not run</span>
+      <div class="body">
+        <h3>Backup and restore</h3>
+        <p>Duplicator reports no backups on staging. Take one before go-live and confirm it can be restored.</p>
+      </div>
+    </div>
+    <div class="item">
+      <span class="pill info">Live domain</span>
+      <div class="body">
+        <h3>DNS, SSL and the cutover</h3>
+        <p>Only the root A record at VentraIP changes (currently <code>43.250.140.17</code>), and <code>www</code> follows it. Ask Emma to drop the TTL from 14400 to 300 a day before, and confirm there is no AAAA record on the root.</p>
+      </div>
+    </div>
+    <div class="item">
+      <span class="pill info">After launch</span>
+      <div class="body">
+        <h3>Analytics, Search Console and the noindex header</h3>
+        <p>Confirm GA4 fires on the real domain, link Search Console, resubmit the sitemap, and check the <code>X-Robots-Tag: noindex</code> header staging sends is gone.</p>
+      </div>
+    </div>
+    <div class="item">
+      <span class="pill info">Not run</span>
+      <div class="body">
+        <h3>Full performance, accessibility and browser coverage</h3>
+        <p>No Lighthouse run with caching on, no WCAG audit and no testing outside Chromium (Safari and Firefox).</p>
+      </div>
+    </div>
+    <div class="item">
+      <span class="pill info">Not run</span>
+      <div class="body">
+        <h3>Content accuracy</h3>
+        <p>Wording, pricing and legal text were compared against live, not proofread.</p>
+      </div>
+    </div>
+    <div class="item">
+      <span class="pill info">Pending</span>
+      <div class="body">
+        <h3>The redesign</h3>
+        <p>Everything above applies to the clone. A repeat run is needed once the new design is on staging.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><b>How it was tested.</b> Every staging URL was fetched one at a time and compared with live. Pages were loaded in a real browser at desktop and phone widths to catch script errors, blocked requests and overflow. Settings were read through the site's own management connection (WordPress, Rank Math, WooCommerce, WP Mail SMTP, WPCode and Duplicator). No write action was used.</p>
+  <p>The access token used for this run has full administrator rights and was shared in chat. Rotate it once the build is finished.</p>
+</footer>
+
+</div>

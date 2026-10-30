@@ -136,15 +136,22 @@ footer { color: var(--muted); font-size: 13px; display: flex; flex-direction: co
 </header>
 
 <div class="verdict">
-  <span class="pill warn">Not ready to point the domain</span>
-  <h2>Staging works and matches the live site exactly. Five things need fixing or deciding first.</h2>
-  <p>Every page, link, image and sitemap entry on staging checks out, and all 44 URLs match live on title, description, H1, robots tags, social tags and content length. That also means staging is currently an unchanged copy of the live site, so the new design is not on it yet. Forms, payments, booking links and the address baked into the SEO settings still need attention before the real domain goes across.</p>
+  <span class="pill pass">Ready to point the domain, with go-live steps</span>
+  <h2>Staging is good and ready for the domain to be pointed, once five go-live steps are done.</h2>
+  <p>Every page, link, image and sitemap entry on staging checks out, and all 44 URLs match the live site on title, description, H1, robots tags, social tags and content length. None of the problems found is new: each one is already on the live site. These five steps need doing or confirming as part of the cutover:</p>
+  <ul class="plain">
+    <li>Confirm whether the new design should be on staging first. It is currently an unchanged copy of live.</li>
+    <li>Replace the staging address in the canonical tags, sitemap and redirects with the real domain.</li>
+    <li>Send one test form on the real domain. reCAPTCHA rejects the staging domain, so forms could not be tested.</li>
+    <li>Decide on the shop. Stripe is off and Cart and Checkout are not published, yet products show Add to cart.</li>
+    <li>Replace the dead Calendly "still not sure" link on 6 pages.</li>
+  </ul>
 </div>
 
 <div class="strip" aria-label="Summary counts">
   <div><b>44</b><span>URLs crawled, all return 200</span></div>
   <div><b>44/44</b><span>match live on SEO tags</span></div>
-  <div><b>5</b><span>to fix or decide before go-live</span></div>
+  <div><b>5</b><span>go-live steps, detailed below</span></div>
   <div><b>11</b><span>issues inherited from live</span></div>
   <div><b>9</b><span>areas not tested</span></div>
 </div>

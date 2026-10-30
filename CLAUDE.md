@@ -81,3 +81,16 @@ action needed.
 
 In both cases: keep DETAILS/bullets terse — bullet points over paragraphs. Only include a NEXT
 line when there's an actual next step or open question.
+
+---
+
+# Other active clients
+
+The JP Goldman scope above is unchanged. A second client now has work in this repo:
+
+- **Anchored Family Law** (anchoredfamilylaw.com.au) — WordPress rebuild onto Kinsta staging,
+  plus an on-page technical audit. Context, timeline, DNS cutover plan and audit findings:
+  `clients/anchored-family-law/CONTEXT.md`.
+
+Keep all Anchored work in one session rather than starting a new one per topic — the history was
+consolidated on 30 Oct 2026 for exactly this reason.
